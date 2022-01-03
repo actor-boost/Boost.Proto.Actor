@@ -5,13 +5,9 @@ namespace Boost.Proto.Actor.DependencyInjection
 {
     internal class PropsFactory<T> : IPropsFactory<T> where T : IActor
     {
-        public PropsFactory(IRootContext rootContext, IServiceProvider serviceProvider)
-        {
-            RootContext = rootContext;
+        public PropsFactory(IServiceProvider serviceProvider) =>
             ServiceProvider = serviceProvider;
-        }
 
-        public IRootContext RootContext { get; }
         public IServiceProvider ServiceProvider { get; }
 
         public Props Create(params object[] args)

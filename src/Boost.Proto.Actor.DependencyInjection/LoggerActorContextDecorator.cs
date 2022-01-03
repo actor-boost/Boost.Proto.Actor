@@ -9,7 +9,7 @@ namespace Boost.Proto.Actor.DependencyInjection
     public class LoggerActorContextDecorator : ActorContextDecorator
     {
         public IContext Context { get; }
-        public ILogger<LoggerActorContextDecorator> Logger { get; }
+        public ILogger Logger { get; }
 
         public LoggerActorContextDecorator(IContext context, IServiceProvider serviceProvider) : base(context)
         {

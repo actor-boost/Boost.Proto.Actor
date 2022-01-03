@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Boost.Proto.Actor.Dependenc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Boost.Proto.Actor.DependencyInjection.Tests", "Boost.Proto.Actor.DependencyInjection.Tests\Boost.Proto.Actor.DependencyInjection.Tests.csproj", "{C9F74C8A-63E5-4DCD-AF31-FA77E5BD71C0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Boost.Proto.Actor.BlazorWasm", "Boost.Proto.Actor.BlazorWasm\Boost.Proto.Actor.BlazorWasm.csproj", "{A71DDC48-2B88-4BC2-8BB3-B0AC0A9BA0F2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{C9F74C8A-63E5-4DCD-AF31-FA77E5BD71C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C9F74C8A-63E5-4DCD-AF31-FA77E5BD71C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C9F74C8A-63E5-4DCD-AF31-FA77E5BD71C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A71DDC48-2B88-4BC2-8BB3-B0AC0A9BA0F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A71DDC48-2B88-4BC2-8BB3-B0AC0A9BA0F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A71DDC48-2B88-4BC2-8BB3-B0AC0A9BA0F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A71DDC48-2B88-4BC2-8BB3-B0AC0A9BA0F2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -17,4 +17,13 @@ public class ReduxActor<TState>
         }
         return Task.CompletedTask;
     }
+
+    protected async Task ChangeStateAsync(IContext c, Func<TState, Task<TState>> func)
+    {
+        State = await func(State);
+        if (State != null)
+        {
+            c.System.EventStream.Publish(State);
+        }
+    }
 }

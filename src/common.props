@@ -1,0 +1,25 @@
+<Project>
+  <PropertyGroup>
+    <Copyright>Copyright © 2020-2021 </Copyright>
+    <Authors>Seungyong Shim</Authors>
+    <Version>9999.0.0.000</Version>
+    <PackageProjectUrl>https://github.com/actor-boost/Boost.Proto.Actor</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/actor-boost/Boost.Proto.Actor/blob/master/LICENSE</PackageLicenseUrl>
+    <NoWarn>$(NoWarn);CS1591;xUnit1013</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
+    <None Include="$(SolutionDir)..\icon.png" Pack="true" PackagePath="\"/>
+  </ItemGroup>
+  <PropertyGroup>
+    <PackageIcon>icon.png</PackageIcon>
+    <RepositoryUrl>https://github.com/actor-boost/Boost.Proto.Actor</RepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+  </PropertyGroup>
+</Project>

@@ -1,0 +1,53 @@
+name: CD
+
+on:
+  push:
+    tags:
+    - v*
+
+jobs:
+  Build-and-Tests:
+    name: Build and Test
+    runs-on: ubuntu-18.04
+    steps:
+    - uses: actions/checkout@v2
+    - name: running infrastructure
+      run: |
+        cd infrastructure
+        docker-compose up -d
+        sleep 2s                    
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.101
+    - name: Install dependencies
+      run: |
+        cd src
+        dotnet restore
+    - name: Build
+      run: |
+        cd src
+        dotnet build --configuration Debug --no-restore
+    - name: Test
+      run: |
+        cd src
+        dotnet test 
+    - id: get_version
+      uses: seungyongshim/get-version-action@v1.3
+    - name: Modification Version
+      run: |
+        cd src
+        sed -i "s/<Version>9999.0.0.000/<Version>${{ steps.get_version.outputs.version }}/g" ./common.props
+        cat ./common.props
+    - name: Generate NuGet packages
+      run: | 
+        cd src
+        dotnet pack -c Release -o nugets
+
+    - name: Push packages to registry
+      run: |
+        cd src/nugets
+        dotnet nuget push "*.nupkg" -k ${NUGET_API_KEY} -s https://api.nuget.org/v3/index.json --skip-duplicate
+      env:
+        NUGET_API_KEY: ${{ secrets.api }}
+  

@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Boost.Proto.Actor.DependencyInjection", "Boost.Proto.Actor.DependencyInjection\Boost.Proto.Actor.DependencyInjection.csproj", "{C4CE7443-C6B9-4BBD-AE5F-96AD8331AFB0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Boost.Proto.Actor.DependencyInjection.Tests", "Boost.Proto.Actor.DependencyInjection.Tests\Boost.Proto.Actor.DependencyInjection.Tests.csproj", "{C9F74C8A-63E5-4DCD-AF31-FA77E5BD71C0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{C4CE7443-C6B9-4BBD-AE5F-96AD8331AFB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C4CE7443-C6B9-4BBD-AE5F-96AD8331AFB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C4CE7443-C6B9-4BBD-AE5F-96AD8331AFB0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9F74C8A-63E5-4DCD-AF31-FA77E5BD71C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9F74C8A-63E5-4DCD-AF31-FA77E5BD71C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9F74C8A-63E5-4DCD-AF31-FA77E5BD71C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9F74C8A-63E5-4DCD-AF31-FA77E5BD71C0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -8,7 +8,7 @@ internal delegate void ProtoActorServiceStart(IServiceProvider sp, IRootContext 
 public partial class ProtoActorService
 {
     [Inject]
-    private RootContext RootContext { get; set; }
+    private IRootContext RootContext { get; set; }
 
     [Inject]
     private IServiceProvider ServiceProvider { get; set; }

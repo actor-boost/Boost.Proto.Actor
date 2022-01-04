@@ -10,12 +10,13 @@ public static class Extensions
     public static IHostBuilder UseProtoActor(this IHostBuilder host,
                                              Func<ActorSystemConfig, ActorSystemConfig> configFunc,
                                              Func<ActorSystem, ActorSystem> sysFunc,
-                                             ProtoActorHostedServiceStart akkaHostedServiceStart)
+                                             Action<IServiceProvider, IRootContext> startAction)
     {
+        var protoActorServiceStart = new ProtoActorHostedServiceStart(startAction);
         host.ConfigureServices((context, services) =>
         {
             services.AddProtoActor(configFunc, sysFunc);
-            services.AddSingleton(akkaHostedServiceStart);
+            services.AddSingleton(protoActorServiceStart);
             services.AddHostedService<ProtoActorHostedService>();
         });
 

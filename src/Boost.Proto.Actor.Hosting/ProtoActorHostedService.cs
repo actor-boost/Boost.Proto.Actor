@@ -3,7 +3,7 @@ using Proto;
 
 namespace Boost.Proto.Actor.Hosting
 {
-    public delegate void ProtoActorHostedServiceStart(IRootContext root);
+    public delegate void ProtoActorHostedServiceStart(IServiceProvider serviceProvider, IRootContext root);
 
     internal class ProtoActorHostedService : IHostedService
     {
@@ -22,7 +22,7 @@ namespace Boost.Proto.Actor.Hosting
 
         public async Task StartAsync(CancellationToken cancellationToken)
         {
-            ProtoActorHostedServiceStart(Root);
+            ProtoActorHostedServiceStart?.Invoke(ServiceProvider, Root);
 
             await Task.Delay(300);
         }

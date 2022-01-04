@@ -1,17 +1,17 @@
 using System;
+using Boost.Proto.Actor.Decorators;
 using Proto;
+using static LanguageExt.Prelude;
 
-namespace Boost.Proto.Actor.DependencyInjection
+namespace Boost.Proto.Actor.DependencyInjection;
+
+internal record PropsFactory<T>(IServiceProvider ServiceProvider,
+                                bool UseLoggerDecorator = true) : IPropsFactory<T> where T : IActor
 {
-    internal class PropsFactory<T> : IPropsFactory<T> where T : IActor
-    {
-        public PropsFactory(IServiceProvider serviceProvider) =>
-            ServiceProvider = serviceProvider;
-
-        public IServiceProvider ServiceProvider { get; }
-
-        public Props Create(params object[] args)
-            => Props.FromProducer(() => ServiceProvider.CreateInstance<T>(args))
-                    .WithContextDecorator(ctx => new LoggerActorContextDecorator(ctx, ServiceProvider));
-    }
+    public Props Create(params object[] args) =>
+        match(from a in Some(Props.FromProducer(() => ServiceProvider.CreateInstance<T>(args)))
+              from b in Some(UseLoggerDecorator ? a.WithContextDecorator(ctx => ServiceProvider.CreateInstance<LoggerActorContextDecorator>(ctx)) : a)
+              select b,
+              x => x,
+              e => null);
 }

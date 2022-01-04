@@ -1,10 +1,7 @@
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
 using Proto;
 
-namespace Boost.Proto.Actor.DependencyInjection
+namespace Boost.Proto.Actor.Hosting
 {
     public delegate void ProtoActorHostedServiceStart(IRootContext root);
 

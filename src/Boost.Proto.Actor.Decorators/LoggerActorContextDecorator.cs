@@ -1,17 +1,15 @@
-using System;
-using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Proto;
 
-namespace Boost.Proto.Actor.DependencyInjection
+namespace Boost.Proto.Actor.Decorators
 {
     public class LoggerActorContextDecorator : ActorContextDecorator
     {
         public IContext Context { get; }
         public ILogger Logger { get; }
 
-        public LoggerActorContextDecorator(IContext context, IServiceProvider serviceProvider) : base(context)
+        public LoggerActorContextDecorator(IServiceProvider serviceProvider, IContext context) : base(context)
         {
             Context = context;
             Logger = serviceProvider.GetRequiredService<ILogger<LoggerActorContextDecorator>>();
@@ -22,7 +20,7 @@ namespace Boost.Proto.Actor.DependencyInjection
             var pid = Context.Self;
             var message = envelope.Message;
 
-            Logger.LogInformation($"{pid}@{message.GetType().Name}");
+            Logger.LogInformation("{actor}@{message}", pid, message.GetType().Name);
 
             try
             {
@@ -39,7 +37,7 @@ namespace Boost.Proto.Actor.DependencyInjection
         {
             var pid = base.SpawnNamed(props, name);
 
-            Logger.LogInformation($"{pid}@SpawnActor");
+            Logger.LogInformation("{actor}@{message}", pid, "SpawnActor");
 
             return pid;
         }

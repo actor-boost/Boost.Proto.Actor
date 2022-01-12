@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="../common.props" />
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Proto.Cluster" Version="0.26.0" />
+    <PackageReference Include="Proto.Cluster.Kubernetes" Version="0.26.0" />
+    <PackageReference Include="Proto.Cluster.TestProvider" Version="0.26.0" />
+    <PackageReference Include="Proto.Remote.GrpcNet" Version="0.26.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Boost.Proto.Actor.DependencyInjection\Boost.Proto.Actor.DependencyInjection.csproj" />
+  </ItemGroup>
+
+
+</Project>

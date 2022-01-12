@@ -12,7 +12,7 @@ public static class ProtoActorDependencyInjectionExtensions
     {
         services.AddSingleton(sp => sysFunc(new ActorSystem(configFunc?.Invoke(ActorSystemConfig.Setup()))));
         services.AddSingleton(typeof(IPropsFactory<>), typeof(PropsFactory<>));
-        services.AddSingleton<IRootContext>(sp => new RootContext(sp.GetService<ActorSystem>()));
+        services.AddSingleton<IRootContext>(sp => sp.GetService<ActorSystem>().Root);
         return services;
     }
     public static T CreateInstance<T>(this IServiceProvider sp, params object[] args)

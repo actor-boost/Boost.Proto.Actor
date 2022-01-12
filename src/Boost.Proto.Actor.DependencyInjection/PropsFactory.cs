@@ -5,8 +5,8 @@ using static LanguageExt.Prelude;
 
 namespace Boost.Proto.Actor.DependencyInjection;
 
-internal record PropsFactory<T>(IServiceProvider ServiceProvider,
-                                bool UseLoggerDecorator = true) : IPropsFactory<T> where T : IActor
+public record PropsFactory<T>(IServiceProvider ServiceProvider,
+                              bool UseLoggerDecorator = true) : IPropsFactory<T> where T : IActor
 {
     public Props Create(params object[] args) =>
         match(from a in Some(Props.FromProducer(() => ServiceProvider.CreateInstance<T>(args)))

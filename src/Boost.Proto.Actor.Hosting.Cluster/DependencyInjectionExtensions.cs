@@ -69,7 +69,7 @@ public static class DependencyInjectionExtensions
                 Log.SetLoggerFactory(sp.GetRequiredService<ILoggerFactory>());
                 var option = sp.GetService<ProtoActorClusterOption>();
 
-                var ret = option.FuncConfig(x)
+                var ret = option.FuncActorSystemConfig(x)
                                 .WithDeveloperSupervisionLogging(true)
                                 .WithDeadLetterRequestLogging(true)
                                 .WithDeveloperThreadPoolStatsLogging(true)
@@ -85,6 +85,5 @@ public static class DependencyInjectionExtensions
         return services;
     }
 
-    public static T CreateInstance<T>(this IServiceProvider sp, params object[] args)
-        => ActivatorUtilities.CreateInstance<T>(sp, args);
+    
 }

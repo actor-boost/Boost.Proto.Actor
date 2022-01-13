@@ -1,13 +1,13 @@
 using Microsoft.Extensions.Hosting;
 using Proto;
 
-namespace Boost.Proto.Actor.Hosting
+namespace Boost.Proto.Actor.Hosting.Local
 {
     public delegate void ProtoActorHostedServiceStart(IServiceProvider serviceProvider, IRootContext root);
 
     internal record ProtoActorHostedService(IServiceProvider ServiceProvider,
                                             IRootContext Root,
-                                            ProtoActorHostedServiceStart ProtoActorHostedServiceStart): IHostedService
+                                            ProtoActorHostedServiceStart ProtoActorHostedServiceStart) : IHostedService
     {
         public async Task StartAsync(CancellationToken cancellationToken)
         {

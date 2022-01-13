@@ -24,9 +24,11 @@ public static class HostExtensions
                 return ret;
             });
 
+            services.AddSingleton<IFuncActorSystem>(sp => sp.GetService<ProtoActorClusterOption>());
+            services.AddSingleton<IFuncActorSystemConfig>(sp => sp.GetService<ProtoActorClusterOption>());
+            services.AddSingleton<IActorSystemStart>(sp => sp.GetService<ProtoActorClusterOption>());
+
             services.AddProtoActor();
-            services.AddSingleton(sp =>
-                new ProtoActorHostedServiceStart(sp.GetService<ProtoActorClusterOption>().ActStart));
             services.AddHostedService<ProtoActorHostedService>();
         });
 

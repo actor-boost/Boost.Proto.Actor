@@ -9,16 +9,19 @@ public class HelloActor : IActor
         Logger = logger;
     }
 
+    public int State { get; set; }
+
     public ILogger Logger { get; }
 
     public Task ReceiveAsync(IContext ctx) => ctx.Message switch
     {
-        var m when ctx.Sender is not null => Handle(m, ctx),
+        int m when ctx.Sender is not null => Handle(m, ctx),
         _ => Task.CompletedTask,
     };
-    private Task Handle(object? m, IContext ctx)
+    private Task Handle(int m, IContext ctx)
     {
-        ctx.Respond(m!);
+        State += m;
+        ctx.Respond(State);
         return Task.CompletedTask;
     }
 }

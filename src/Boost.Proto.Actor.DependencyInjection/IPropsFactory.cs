@@ -1,9 +1,6 @@
-using Proto;
+namespace Boost.Proto.Actor.DependencyInjection;
 
-namespace Boost.Proto.Actor.DependencyInjection
+public interface IPropsFactory<out TActor> where TActor : IActor
 {
-    public interface IPropsFactory<out TActor> where TActor : IActor
-    {
-        Props Create(params object[] args);
-    }
+    Props Create(params object[] args);
 }

@@ -1,10 +1,11 @@
+using Boost.Proto.Actor.DependencyInjection;
 using Google.Protobuf.Reflection;
 using Microsoft.Extensions.Configuration;
 using Proto;
 
 namespace Boost.Proto.Actor.Hosting.Cluster;
 
-public class ProtoActorClusterOption
+public class ProtoActorClusterOption : IFuncActorSystemConfig, IFuncActorSystem, IActorSystemStart
 {
     public ProtoActorClusterOption(IConfiguration configuration)
     {
@@ -25,15 +26,6 @@ public class ProtoActorClusterOption
 
     public string ClusterProvider { get; set; }
 
-    public Func<ActorSystemConfig, ActorSystemConfig> FuncConfig { get; set; }
-        = _ => _;
-
-    public Func<ActorSystem, ActorSystem> FuncSystem { get; set; }
-        = _ => _;
-
-    public Action<IServiceProvider, IRootContext> ActStart { get; set; }
-        = (sp, ctx) => { };
-
     public IEnumerable<(string, Props)> ClusterKinds { get; set; }
         = Array.Empty<(string, Props)>();
 
@@ -43,4 +35,13 @@ public class ProtoActorClusterOption
     public IConfiguration Configuration { get; }
 
     public string AdvertisedHost { get; set; }
+
+    public Func<ActorSystemConfig, ActorSystemConfig> FuncActorSystemConfig { get; set; }
+           = _ => _;
+
+    public Func<ActorSystem, ActorSystem> FuncSystem { get; set; }
+        = _ => _;
+
+    public Action<IServiceProvider, IRootContext> ActorSystemStart { get; set; }
+        = (sp, ctx) => { };
 }

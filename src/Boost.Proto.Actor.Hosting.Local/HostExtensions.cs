@@ -8,23 +8,24 @@ namespace Boost.Proto.Actor.Hosting.Local;
 public static class HostExtensions
 {
     public static IHostBuilder UseProtoActor(this IHostBuilder host,
-                                             Action<IServiceProvider, ProtoActorLocalOption> config)
+                                             Action<IServiceProvider, HostOption> config)
     {
         host.ConfigureServices((context, services) =>
         {
             services.AddSingleton(sp =>
             {
-                var ret = sp.CreateInstance<ProtoActorLocalOption>();
+                var ret = ActivatorUtilities.CreateInstance<HostOption>(sp);
                 config?.Invoke(sp, ret);
                 return ret;
             });
 
-            services.AddSingleton<IFuncActorSystem>(sp => sp.GetService<ProtoActorLocalOption>());
-            services.AddSingleton<IFuncActorSystemConfig>(sp => sp.GetService<ProtoActorLocalOption>());
-            services.AddSingleton<IActorSystemStart>(sp => sp.GetService<ProtoActorLocalOption>());
-
+            services.AddSingleton(sp => new FuncRootContext(sp.GetService<HostOption>()!.FuncRootContext));
+            services.AddSingleton(sp => new FuncActorSystem(sp.GetService<HostOption>()!.FuncActorSystem));
+            services.AddSingleton(sp => new FuncActorSystemConfig(sp.GetService<HostOption>()!.FuncActorSystemConfig));
+            services.AddSingleton(sp => new FuncActorSystemStart(sp.GetService<HostOption>()!.FuncActorSystemStart));
+            
+            services.AddHostedService<HostedService>();
             services.AddProtoActor();
-            services.AddHostedService<ProtoActorHostedService>();
         });
 
         return host;

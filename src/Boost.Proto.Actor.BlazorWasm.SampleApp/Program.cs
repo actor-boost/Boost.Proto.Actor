@@ -12,10 +12,12 @@ builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.
 
 builder.UseProtoActor((sp, option) =>
 {
-    option.ActorSystemStart = root =>
+    option.FuncActorSystemStart = root =>
     {
         root.SpawnNamed(sp.GetService<IPropsFactory<CounterActor>>()
                           .Create(new CounterState(0)), nameof(CounterActor));
+
+        return root;
     };
 });
 

@@ -12,26 +12,28 @@ using Proto.Remote.GrpcNet;
 
 namespace Boost.Proto.Actor.Hosting.Cluster;
 
+
 public static class HostExtensions
 {
     public static IHostBuilder UseProtoActorCluster(this IHostBuilder host,
-                                                    Action<IServiceProvider, ProtoActorClusterOption> option)
+                                                    Action<IServiceProvider, HostOption> option)
     {
         host.ConfigureServices((context, services) =>
         {
+            services.AddProtoActor();
+            services.AddHostedService<HostedService>();
+
             services.AddSingleton(sp =>
             {
-                var ret = sp.CreateInstance<ProtoActorClusterOption>();
+                var ret = ActivatorUtilities.CreateInstance<HostOption>(sp);
                 option?.Invoke(sp, ret);
                 return ret;
             });
 
-            services.AddSingleton<IFuncActorSystem>(sp => sp.GetService<ProtoActorClusterOption>());
-            services.AddSingleton<IFuncActorSystemConfig>(sp => sp.GetService<ProtoActorClusterOption>());
-            services.AddSingleton<IActorSystemStart>(sp => sp.GetService<ProtoActorClusterOption>());
-
-            services.AddProtoActor();
-            services.AddHostedService<ProtoActorHostedService>();
+            services.AddSingleton(sp => new FuncActorSystem(sp.GetService<HostOption>().FuncActorSystem));
+            services.AddSingleton(sp => new FuncActorSystemConfig(sp.GetService<HostOption>().FuncActorSystemConfig));
+            services.AddSingleton(sp => new FuncRootContext(sp.GetService<HostOption>().FuncRootContext));
+            services.AddSingleton(sp => new FuncActorSystemStart(sp.GetService<HostOption>().FuncActorSystemStart));
 
             services.AddSingleton(sp => KubernetesClientConfiguration.InClusterConfig());
             services.AddSingleton<IKubernetes>(sp => new Kubernetes(sp.GetService<KubernetesClientConfiguration>()));
@@ -39,16 +41,16 @@ public static class HostExtensions
 
             services.AddSingleton<IClusterProvider>(sp =>
             {
-                return sp.GetService<ProtoActorClusterOption>().ClusterProvider switch
+                return sp.GetService<HostOption>().ClusterProvider switch
                 {
-                    ClusterProviderType.Kubernetes => sp.CreateInstance<KubernetesProvider>(),
+                    ClusterProviderType.Kubernetes => ActivatorUtilities.CreateInstance<KubernetesProvider>(sp),
                     _ => new TestProvider(new TestProviderOptions(), new InMemAgent())
                 };
             });
 
             services.AddSingleton<GrpcNetRemoteConfig>(sp =>
             {
-                var option = sp.GetService<ProtoActorClusterOption>();
+                var option = sp.GetService<HostOption>();
 
                 return option.ClusterProvider switch
                 {
@@ -60,36 +62,31 @@ public static class HostExtensions
 
             services.AddSingleton(sp =>
             {
-                var option = sp.GetService<ProtoActorClusterOption>();
+                var option = sp.GetService<HostOption>();
                 return ClusterConfig.Setup(option.ClusterName,
                                            sp.GetService<IClusterProvider>(),
                                            new PartitionIdentityLookup())
                                     .WithClusterKinds(option.ClusterKinds.ToArray());
             });
 
-            services.AddSingleton<IFuncActorSystem>(sp =>
+            services.AddSingleton(sp =>
             {
                 var clusterConfig = sp.GetService<ClusterConfig>();
                 var remoteConfig = sp.GetService<GrpcNetRemoteConfig>();
 
-                return new FuncClusterActorSystem
-                {
-                    FuncSystem = x => x.WithRemote(remoteConfig)
-                                       .WithCluster(clusterConfig)
-                };
+                return new FuncActorSystem(x => x.WithRemote(remoteConfig)
+                                                 .WithCluster(clusterConfig));
             });
 
-            services.AddSingleton<IFuncActorSystemConfig>(sp =>
+            services.AddSingleton(sp =>
             {
-                var option = sp.GetService<ProtoActorClusterOption>();
+                var option = sp.GetService<HostOption>();
 
-                return new FuncClusterActorSystemConfig
-                {
-                    FuncActorSystemConfig = x => x.WithDeveloperSupervisionLogging(true)
-                                                  .WithDeadLetterRequestLogging(true)
-                                                  .WithDeveloperThreadPoolStatsLogging(true)
-                                                  .WithDeveloperReceiveLogging(TimeSpan.FromSeconds(5))
-                };
+                return new FuncActorSystemConfig(
+                   x => x.WithDeveloperSupervisionLogging(true)
+                         .WithDeadLetterRequestLogging(true)
+                         .WithDeveloperThreadPoolStatsLogging(true)
+                         .WithDeveloperReceiveLogging(TimeSpan.FromSeconds(5)));
             });
         });
 

@@ -4,19 +4,17 @@ using Proto;
 
 namespace Boost.Proto.Actor.BlazorWasm;
 
-internal delegate void ProtoActorServiceStart(IServiceProvider sp, IRootContext root);
-
 public partial class ProtoActorService
 {
     [Inject]
-    private IRootContext RootContext { get; set; }
+    public IRootContext RootContext { get; set; }
 
     [Inject]
-    private IActorSystemStart ActorSystemStart { get; set; }
+    public IEnumerable<FuncActorSystemStart> ActorSystemStarts { get; set; }
 
     protected override Task OnInitializedAsync()
     {
-        ActorSystemStart.ActorSystemStart?.Invoke(RootContext);
+        ActorSystemStarts.Reduce((x, y) => x + y)(RootContext);
         return base.OnInitializedAsync();
     }
 }

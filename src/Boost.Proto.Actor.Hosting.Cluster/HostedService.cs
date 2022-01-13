@@ -5,12 +5,12 @@ using Proto.Cluster;
 
 namespace Boost.Proto.Actor.Hosting.Cluster
 {
-    internal record ProtoActorHostedService(IActorSystemStart ActorSystemStart,
-                                            IRootContext Root) : IHostedService
+    internal record HostedService(IEnumerable<FuncActorSystemStart> FuncActorSystemStarts,
+                                  IRootContext Root) : IHostedService
     {
         public async Task StartAsync(CancellationToken cancellationToken)
         {
-            ActorSystemStart.ActorSystemStart?.Invoke(Root);
+            FuncActorSystemStarts.Reduce((x , y) => x+ y)(Root);
             await Root.System.Cluster().StartMemberAsync();
         }
 

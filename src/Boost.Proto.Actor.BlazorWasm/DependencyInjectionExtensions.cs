@@ -19,14 +19,15 @@ public static class DependencyInjectionExtensions
     {
         services.AddSingleton(sp =>
         {
-            var ret = sp.CreateInstance<ProtoActorWasmOption>();
+            var ret = ActivatorUtilities.CreateInstance<ProtoActorWasmOption>(sp);
             config?.Invoke(sp, ret);
             return ret;
         });
 
-        services.AddSingleton<IFuncActorSystem>(sp => sp.GetService<ProtoActorWasmOption>());
-        services.AddSingleton<IFuncActorSystemConfig>(sp => sp.GetService<ProtoActorWasmOption>());
-        services.AddSingleton<IActorSystemStart>(sp => sp.GetService<ProtoActorWasmOption>());
+        services.AddSingleton(sp => new FuncActorSystem(sp.GetService<ProtoActorWasmOption>()!.FuncActorSystem));
+        services.AddSingleton(sp => new FuncActorSystemConfig(sp.GetService<ProtoActorWasmOption>()!.FuncActorSystemConfig));
+        services.AddSingleton(sp => new FuncRootContext(sp.GetService<ProtoActorWasmOption>()!.FuncRootContext));
+        services.AddSingleton(sp => new FuncActorSystemStart(sp.GetService<ProtoActorWasmOption>()!.FuncActorSystemStart));
 
         services.AddProtoActor();
         return services;

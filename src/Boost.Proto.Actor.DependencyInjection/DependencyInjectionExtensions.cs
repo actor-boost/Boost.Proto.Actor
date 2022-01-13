@@ -1,14 +1,10 @@
-using System.Runtime.CompilerServices;
+using Boost.Proto.Actor.DependencyInjection.Implementations;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-[assembly: InternalsVisibleTo("Boost.Proto.Actor.BlazorWasm")]
-[assembly: InternalsVisibleTo("Boost.Proto.Actor.Hosting.Local")]
-[assembly: InternalsVisibleTo("Boost.Proto.Actor.Hosting.Cluster")]
-
 namespace Boost.Proto.Actor.DependencyInjection;
 
-internal static class DependencyInjectionExtensions
+public static class DependencyInjectionExtensions
 {
     public static IServiceCollection AddProtoActor(this IServiceCollection services)
     {
@@ -16,18 +12,23 @@ internal static class DependencyInjectionExtensions
         {
             Log.SetLoggerFactory(sp.GetRequiredService<ILoggerFactory>());
 
-            var configFunc = (from x in sp.GetServices<IFuncActorSystemConfig>()
-                              select x.FuncActorSystemConfig).Reduce((x, y) => x + y);
-            var funcSystem = (from x in sp.GetServices<IFuncActorSystem>()
-                              select x.FuncSystem).Reduce((x, y) => x + y);
+            var funcConfig = sp.GetServices<FuncActorSystemConfig>()
+                               .Reduce((x, y) => x + y);
+            var funcSystem = sp.GetServices<FuncActorSystem>()
+                               .Reduce((x, y) => x + y);
 
-            return funcSystem(new ActorSystem(configFunc?.Invoke(ActorSystemConfig.Setup())));
+            return funcSystem(new ActorSystem(funcConfig(ActorSystemConfig.Setup())));
         });
+
         services.AddSingleton(typeof(IPropsFactory<>), typeof(PropsFactory<>));
-        services.AddSingleton<IRootContext>(sp => sp.GetService<ActorSystem>().Root);
+        services.AddSingleton(sp => sp.GetService<ActorSystem>().Root);
+        services.AddSingleton(sp =>
+        {
+            var funcRootContext = sp.GetServices<FuncRootContext>()
+                                    .Reduce((x, y) => x + y);
+
+            return funcRootContext(sp.GetService<RootContext>());
+        });
         return services;
     }
-
-    public static T CreateInstance<T>(this IServiceProvider sp, params object[] args)
-        => ActivatorUtilities.CreateInstance<T>(sp, args);
 }

@@ -4,12 +4,12 @@ using Proto;
 
 namespace Boost.Proto.Actor.Hosting.Local
 {
-    internal record ProtoActorHostedService(IActorSystemStart ActorSystemStart,
-                                            IRootContext Root) : IHostedService
+    internal record HostedService(IEnumerable<FuncActorSystemStart> ActorSystemStarts,
+                                  IRootContext Root) : IHostedService
     {
         public Task StartAsync(CancellationToken cancellationToken)
         {
-            ActorSystemStart.ActorSystemStart?.Invoke(Root);
+            ActorSystemStarts.Reduce((x, y) => x + y)(Root);
             return Task.CompletedTask;
         }
 

@@ -13,10 +13,12 @@ builder.Services.AddSwaggerGen();
 
 builder.Host.UseProtoActor((sp, option) =>
 {
-    option.ActorSystemStart = root =>
+    option.FuncActorSystemStart = root =>
     {
         root.SpawnNamed(sp.GetService<IPropsFactory<CounterActor>>()
                           .Create(), nameof(CounterActor));
+
+        return root;
     };
 });
 

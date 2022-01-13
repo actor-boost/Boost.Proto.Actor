@@ -23,6 +23,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Boost.Proto.Actor.Hosting.L
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Boost.Proto.Actor.Hosting.OpenTelemetry", "Boost.Proto.Actor.Hosting.OpenTelemetry\Boost.Proto.Actor.Hosting.OpenTelemetry.csproj", "{540C334D-8201-4481-B660-4CB1BF78FD26}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Boost.Proto.Actor.Hosting.OpenTelemetry.SampleApp", "Boost.Proto.Actor.Hosting.OpenTelemetry.SampleApp\Boost.Proto.Actor.Hosting.OpenTelemetry.SampleApp.csproj", "{9BC8F4A2-E09E-4036-A53F-DFA73409620D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Boost.Proto.Actor.Hosting.Logging", "Boost.Proto.Actor.Hosting.Logging\Boost.Proto.Actor.Hosting.Logging.csproj", "{05D17D31-30C8-429B-9C4A-942AB350C08D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +73,14 @@ Global
 		{540C334D-8201-4481-B660-4CB1BF78FD26}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{540C334D-8201-4481-B660-4CB1BF78FD26}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{540C334D-8201-4481-B660-4CB1BF78FD26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9BC8F4A2-E09E-4036-A53F-DFA73409620D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BC8F4A2-E09E-4036-A53F-DFA73409620D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BC8F4A2-E09E-4036-A53F-DFA73409620D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BC8F4A2-E09E-4036-A53F-DFA73409620D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05D17D31-30C8-429B-9C4A-942AB350C08D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05D17D31-30C8-429B-9C4A-942AB350C08D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05D17D31-30C8-429B-9C4A-942AB350C08D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05D17D31-30C8-429B-9C4A-942AB350C08D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

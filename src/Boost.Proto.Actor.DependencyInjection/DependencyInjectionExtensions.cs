@@ -8,6 +8,8 @@ public static class DependencyInjectionExtensions
 {
     public static IServiceCollection AddProtoActor(this IServiceCollection services)
     {
+        services.AddSingleton(sp => new FuncProps(Props (Props _) => _));
+
         services.AddSingleton(sp =>
         {
             Log.SetLoggerFactory(sp.GetRequiredService<ILoggerFactory>());

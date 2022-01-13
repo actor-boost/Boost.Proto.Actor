@@ -9,7 +9,7 @@ builder.Services.AddControllers();
 builder.Host.UseProtoActorCluster((sp, option) =>
 {
     option.ClusterName = "Sample";
-    option.ClusterKinds.Add(("HelloActor", sp.GetService<IPropsFactory<HelloActor>>().Create()));
+    option.ClusterKinds.Add((nameof(HelloActor), sp.GetService<IPropsFactory<HelloActor>>().Create()));
 });
 
 var app = builder.Build();
@@ -23,7 +23,7 @@ app.Redirect("/", "/swagger");
 app.MapGet("/hello", async (Cluster cluster) =>
  {
      var cts = new CancellationTokenSource();
-     return await cluster.RequestAsync<int>("1", "HelloActor", 1, cts.Token);
+     return await cluster.RequestAsync<int>("C7282A09-792A-40F4-9263-3438546D67B9", "HelloActor", 1, cts.Token);
  });
 
 await app.RunAsync();

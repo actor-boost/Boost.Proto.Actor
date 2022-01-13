@@ -37,7 +37,7 @@ public static class HostExtensions
 
             services.AddSingleton(sp => KubernetesClientConfiguration.InClusterConfig());
             services.AddSingleton<IKubernetes>(sp => new Kubernetes(sp.GetService<KubernetesClientConfiguration>()));
-            services.AddSingleton(sp => sp.GetService<ActorSystem>().Cluster());
+            services.AddSingleton(sp => sp.GetService<IRootContext>().System.Cluster());
 
             services.AddSingleton<IClusterProvider>(sp =>
             {

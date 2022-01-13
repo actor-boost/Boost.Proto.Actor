@@ -10,11 +10,11 @@ namespace Boost.Proto.Actor.Hosting.Cluster
     {
         public async Task StartAsync(CancellationToken cancellationToken)
         {
-            FuncActorSystemStarts.Reduce((x , y) => x+ y)(Root);
+            FuncActorSystemStarts.Reduce((x, y) => x + y)(Root);
             await Root.System.Cluster().StartMemberAsync();
         }
 
-        public async Task StopAsync(CancellationToken cancellationToken) 
+        public async Task StopAsync(CancellationToken cancellationToken)
         {
             await Root.System.Cluster().ShutdownAsync();
             await Root.System.ShutdownAsync();

@@ -1,6 +1,7 @@
 using Boost.Proto.Actor.DependencyInjection;
 using Boost.Proto.Actor.Hosting.Local;
 using Boost.Proto.Actor.Hosting.Local.SampleApp.Actors;
+using Boost.Proto.Actor.Hosting.Logging;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +22,8 @@ builder.Host.UseProtoActor((sp, option) =>
         return root;
     };
 });
+
+builder.Host.UseProtoActorLogging((sp, option) => { });
 
 var app = builder.Build();
 

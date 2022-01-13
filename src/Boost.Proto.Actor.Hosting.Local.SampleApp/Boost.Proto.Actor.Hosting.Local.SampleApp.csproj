@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Boost.Proto.Actor.Hosting.Local\Boost.Proto.Actor.Hosting.Local.csproj" />
+    <ProjectReference Include="..\Boost.Proto.Actor.Hosting.Logging\Boost.Proto.Actor.Hosting.Logging.csproj" />
   </ItemGroup>
 
 </Project>

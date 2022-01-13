@@ -31,8 +31,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseAuthorization();
 
-app.MapControllers();
-
 app.MapGet("/Counter", async (IRootContext root) =>
 {
     var pid = new PID(root.System.Address, nameof(CounterActor));

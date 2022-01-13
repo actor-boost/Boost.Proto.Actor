@@ -1,5 +1,6 @@
 using System.Runtime.CompilerServices;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 [assembly: InternalsVisibleTo("Boost.Proto.Actor.BlazorWasm")]
 [assembly: InternalsVisibleTo("Boost.Proto.Actor.Hosting.Local")]
@@ -13,6 +14,8 @@ internal static class DependencyInjectionExtensions
     {
         services.AddSingleton(sp =>
         {
+            Log.SetLoggerFactory(sp.GetRequiredService<ILoggerFactory>());
+
             var configFunc = (from x in sp.GetServices<IFuncActorSystemConfig>()
                               select x.FuncActorSystemConfig).Reduce((x, y) => x + y);
             var funcSystem = (from x in sp.GetServices<IFuncActorSystem>()

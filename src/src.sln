@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Boost.Proto.Actor.Hosting.L
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Boost.Proto.Actor.BlazorWasm.SampleApp", "Boost.Proto.Actor.BlazorWasm.SampleApp\Boost.Proto.Actor.BlazorWasm.SampleApp.csproj", "{0F4B31DA-B23F-4FF4-A059-0AADC4249BA5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Boost.Proto.Actor.Hosting.Local.SampleApp", "Boost.Proto.Actor.Hosting.Local.SampleApp\Boost.Proto.Actor.Hosting.Local.SampleApp.csproj", "{A74AEAEF-D308-4BBF-87AC-87DFCAA8D5AD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,10 @@ Global
 		{0F4B31DA-B23F-4FF4-A059-0AADC4249BA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0F4B31DA-B23F-4FF4-A059-0AADC4249BA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0F4B31DA-B23F-4FF4-A059-0AADC4249BA5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A74AEAEF-D308-4BBF-87AC-87DFCAA8D5AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A74AEAEF-D308-4BBF-87AC-87DFCAA8D5AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A74AEAEF-D308-4BBF-87AC-87DFCAA8D5AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A74AEAEF-D308-4BBF-87AC-87DFCAA8D5AD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -24,7 +24,7 @@ public static class DependencyInjectionExtensions
         {
             return sp.GetService<ProtoActorClusterOption>().ClusterProvider switch
             {
-                "k8s" => sp.CreateInstance<KubernetesProvider>(),
+                ClusterProviderType.Kubernetes => sp.CreateInstance<KubernetesProvider>(),
                 _ => new TestProvider(new TestProviderOptions(), new InMemAgent())
             };
         });
@@ -35,8 +35,8 @@ public static class DependencyInjectionExtensions
 
             return option.ClusterProvider switch
             {
-                "k8s" => GrpcNetRemoteConfig.BindToAllInterfaces(option.AdvertisedHost)
-                                            .WithProtoMessages(option.ProtoMessages.ToArray()),
+                ClusterProviderType.Kubernetes => GrpcNetRemoteConfig.BindToAllInterfaces(option.AdvertisedHost)
+                                                                     .WithProtoMessages(option.ProtoMessages.ToArray()),
                 _ => GrpcNetRemoteConfig.BindToLocalhost()
             };
         });

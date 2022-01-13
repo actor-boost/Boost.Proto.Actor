@@ -1,18 +1,13 @@
-﻿@page "/counter"
+@page "/counter"
+@using Boost.Proto.Actor.BlazorWasm.SampleApp.Actors.Counter
 
 <PageTitle>Counter</PageTitle>
 
 <h1>Counter</h1>
 
-<p role="status">Current count: @currentCount</p>
 
-<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+<p role="status">Current count: @(State?.Count ?? 0)</p>
 
-@code {
-    private int currentCount = 0;
+<button class="btn btn-primary" @onclick="e => Command(new Increase())">Click me</button>
 
-    private void IncrementCount()
-    {
-        currentCount++;
-    }
-}
+

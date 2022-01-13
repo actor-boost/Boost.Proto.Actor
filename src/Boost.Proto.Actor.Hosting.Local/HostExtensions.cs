@@ -10,7 +10,6 @@ public static class HostExtensions
     public static IHostBuilder UseProtoActor(this IHostBuilder host,
                                              Action<IServiceProvider, ProtoActorLocalOption> config)
     {
-
         host.ConfigureServices((context, services) =>
         {
             services.AddSingleton(sp =>
@@ -25,8 +24,6 @@ public static class HostExtensions
             services.AddSingleton<IActorSystemStart>(sp => sp.GetService<ProtoActorLocalOption>());
 
             services.AddProtoActor();
-            services.AddSingleton(sp =>
-                new ProtoActorHostedServiceStart(sp.GetService<ProtoActorLocalOption>().ActorSystemStart));
             services.AddHostedService<ProtoActorHostedService>();
         });
 

@@ -1,18 +1,16 @@
+using Boost.Proto.Actor.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Proto;
 
 namespace Boost.Proto.Actor.Hosting.Local
 {
-    public delegate void ProtoActorHostedServiceStart(IServiceProvider serviceProvider, IRootContext root);
-
-    internal record ProtoActorHostedService(IServiceProvider ServiceProvider,
-                                            IRootContext Root,
-                                            ProtoActorHostedServiceStart ProtoActorHostedServiceStart) : IHostedService
+    internal record ProtoActorHostedService(IActorSystemStart ActorSystemStart,
+                                            IRootContext Root) : IHostedService
     {
-        public async Task StartAsync(CancellationToken cancellationToken)
+        public Task StartAsync(CancellationToken cancellationToken)
         {
-            ProtoActorHostedServiceStart?.Invoke(ServiceProvider, Root);
-            await Task.Delay(300);
+            ActorSystemStart.ActorSystemStart?.Invoke(Root);
+            return Task.CompletedTask;
         }
 
         public async Task StopAsync(CancellationToken cancellationToken) => await Root.System.ShutdownAsync();

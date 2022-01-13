@@ -1,3 +1,4 @@
+using Boost.Proto.Actor.DependencyInjection;
 using Microsoft.AspNetCore.Components;
 using Proto;
 
@@ -11,14 +12,11 @@ public partial class ProtoActorService
     private IRootContext RootContext { get; set; }
 
     [Inject]
-    private IServiceProvider ServiceProvider { get; set; }
-
-    [Inject]
-    private ProtoActorServiceStart ProtoActorServiceStart { get; set; }
+    private IActorSystemStart ActorSystemStart { get; set; }
 
     protected override Task OnInitializedAsync()
     {
-        ProtoActorServiceStart(ServiceProvider, RootContext);
+        ActorSystemStart.ActorSystemStart?.Invoke(RootContext);
         return base.OnInitializedAsync();
     }
 }

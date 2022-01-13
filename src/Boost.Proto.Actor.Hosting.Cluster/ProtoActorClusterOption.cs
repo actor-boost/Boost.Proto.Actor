@@ -5,6 +5,12 @@ using Proto;
 
 namespace Boost.Proto.Actor.Hosting.Cluster;
 
+public enum ClusterProviderType
+{
+    Local,
+    Kubernetes
+}
+
 public class ProtoActorClusterOption : IFuncActorSystemConfig, IFuncActorSystem, IActorSystemStart
 {
     public ProtoActorClusterOption(IConfiguration configuration)
@@ -17,14 +23,14 @@ public class ProtoActorClusterOption : IFuncActorSystemConfig, IFuncActorSystem,
         };
         ClusterProvider = AdvertisedHost switch
         {
-            "127.0.0.1" => "local",
-            _ => "k8s",
+            "127.0.0.1" => ClusterProviderType.Local,
+            _ => ClusterProviderType.Kubernetes,
         };
     }
 
     public string ClusterName { get; set; }
 
-    public string ClusterProvider { get; set; }
+    public ClusterProviderType ClusterProvider { get; set; }
 
     public IEnumerable<(string, Props)> ClusterKinds { get; set; }
         = Array.Empty<(string, Props)>();
@@ -42,6 +48,6 @@ public class ProtoActorClusterOption : IFuncActorSystemConfig, IFuncActorSystem,
     public Func<ActorSystem, ActorSystem> FuncSystem { get; set; }
         = _ => _;
 
-    public Action<IServiceProvider, IRootContext> ActorSystemStart { get; set; }
-        = (sp, ctx) => { };
+    public Action<IRootContext> ActorSystemStart { get; set; }
+        = ctx => { };
 }

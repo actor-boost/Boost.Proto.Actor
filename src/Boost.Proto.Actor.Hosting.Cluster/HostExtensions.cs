@@ -1,7 +1,5 @@
 using Boost.Proto.Actor.DependencyInjection;
-using Boost.Proto.Actor.Hosting.Cluster;
 using k8s;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Proto;
@@ -69,7 +67,6 @@ public static class HostExtensions
                                     .WithClusterKinds(option.ClusterKinds.ToArray());
             });
 
-
             services.AddSingleton<IFuncActorSystem>(sp =>
             {
                 var clusterConfig = sp.GetService<ClusterConfig>();
@@ -81,7 +78,6 @@ public static class HostExtensions
                                        .WithCluster(clusterConfig)
                 };
             });
-
 
             services.AddSingleton<IFuncActorSystemConfig>(sp =>
             {

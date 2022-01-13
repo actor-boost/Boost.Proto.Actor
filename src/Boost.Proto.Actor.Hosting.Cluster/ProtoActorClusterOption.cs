@@ -32,8 +32,8 @@ public class ProtoActorClusterOption : IFuncActorSystemConfig, IFuncActorSystem,
 
     public ClusterProviderType ClusterProvider { get; set; }
 
-    public IEnumerable<(string, Props)> ClusterKinds { get; set; }
-        = Array.Empty<(string, Props)>();
+    public IList<(string, Props)> ClusterKinds { get; }
+        = new List<(string, Props)>();
 
     public IEnumerable<FileDescriptor> ProtoMessages { get; set; }
         = Array.Empty<FileDescriptor>();

@@ -9,11 +9,7 @@ builder.Services.AddControllers();
 builder.Host.UseProtoActorCluster((sp, option) =>
 {
     option.ClusterName = "Sample";
-    option.ClusterKinds = new[]
-    {
-        ("HelloActor", sp.GetService<IPropsFactory<HelloActor>>()
-                         .Create())
-    };
+    option.ClusterKinds.Add(("HelloActor", sp.GetService<IPropsFactory<HelloActor>>().Create()));
 });
 
 var app = builder.Build();

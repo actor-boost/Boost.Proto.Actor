@@ -1,6 +1,7 @@
 using System.Reflection;
 using Boost.Proto.Actor.DependencyInjection;
 using Boost.Proto.Actor.Hosting.Cluster;
+using Boost.Proto.Actor.Hosting.Logging;
 using Boost.Proto.Actor.Hosting.OpenTelemetry.SampleApp.Actors;
 using Boost.Proto.Actor.Opentelemetry;
 using Boost.Proto.Actor.OpenTelemetry;
@@ -18,8 +19,9 @@ builder.Services.AddOpenTelemetryTracing(builder =>
                                               .AddService(AppDomain.CurrentDomain.FriendlyName))
            .SetSampler(new AlwaysOnSampler())
            .AddSource(ProtoTags.ActivitySourceName)
-           .AddAspNetCoreInstrumentation()
-           .AddConsoleExporter();
+           .AddConsoleExporter()
+           .AddAspNetCoreInstrumentation();
+           
 });
 
 builder.Host.UseProtoActorCluster((sp, option) =>
@@ -27,8 +29,11 @@ builder.Host.UseProtoActorCluster((sp, option) =>
     option.ClusterName = "Sample";
     option.ClusterKinds.Add((nameof(HelloActor), sp.GetService<IPropsFactory<HelloActor>>().Create()));
 });
+builder.Host.UseProtoActorLogging((sp, option) => { });
 
 builder.Host.UseProtoActorOpenTelemetry((sp, option) => { });
+
+
 
 var app = builder.Build();
 

@@ -19,8 +19,9 @@ namespace Boost.Proto.Actor.Decorators
         {
             var pid = Context.Self;
             var message = envelope.Message;
+            var header = envelope.Header;
 
-            Logger.LogInformation("{actor}@{message}", pid, message.GetType().Name);
+            Logger.LogInformation("{actor}@{message}{header}", pid, message.GetType().Name, header);
 
             try
             {

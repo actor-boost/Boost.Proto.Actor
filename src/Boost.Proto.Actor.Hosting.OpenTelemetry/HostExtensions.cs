@@ -20,6 +20,7 @@ public static class HostExtensions
                 return ret;
             });
 
+            services.AddSingleton<FuncIRootContext>(x => x.WithTracing());
             services.AddSingleton<FuncRootContext>(x => x.WithTracing());
             services.AddSingleton<FuncProps>(x => x.WithTracing());
         });

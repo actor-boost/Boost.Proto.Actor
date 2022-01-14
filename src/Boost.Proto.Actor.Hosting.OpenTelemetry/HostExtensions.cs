@@ -23,7 +23,7 @@ public static class HostExtensions
             services.AddSingleton(sp =>
             {
                 var funcRootContext = sp.GetServices<FuncRootContext>()
-                                        .Reduce((x, y) => x + y);
+                                        .Reduce((x, y) => z => y(x(z)));
 
                 return funcRootContext(sp.GetService<RootContext>().WithTracing());
             });

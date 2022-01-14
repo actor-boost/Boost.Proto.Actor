@@ -10,7 +10,7 @@ namespace Boost.Proto.Actor.Hosting.Cluster
     {
         public async Task StartAsync(CancellationToken cancellationToken)
         {
-            FuncActorSystemStarts.Reduce((x, y) => x + y)(Root);
+            FuncActorSystemStarts.Reduce((x, y) => z => y(x(z)))(Root);
             await Root.System.Cluster().StartMemberAsync();
         }
 

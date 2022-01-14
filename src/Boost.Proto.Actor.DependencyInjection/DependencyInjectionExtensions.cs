@@ -8,16 +8,20 @@ public static class DependencyInjectionExtensions
 {
     public static IServiceCollection AddProtoActor(this IServiceCollection services)
     {
-        services.AddSingleton(sp => new FuncProps(Props (Props _) => _));
+        services.AddSingleton<FuncProps>(sp => _ => _);
+        services.AddSingleton<FuncActorSystem>(sp => _ => _);
+        services.AddSingleton<FuncActorSystemConfig>(sp => _ => _);
+        services.AddSingleton<FuncRootContext>(sp => _ => _);
+        services.AddSingleton<FuncActorSystemStart>(sp => _ => _);
 
         services.AddSingleton(sp =>
         {
             Log.SetLoggerFactory(sp.GetRequiredService<ILoggerFactory>());
 
             var funcConfig = sp.GetServices<FuncActorSystemConfig>()
-                               .Reduce((x, y) => x + y);
+                               .Reduce((x, y) => z => y(x(z)));
             var funcSystem = sp.GetServices<FuncActorSystem>()
-                               .Reduce((x, y) => x + y);
+                               .Reduce((x, y) => z => y(x(z)));
 
             return funcSystem(new ActorSystem(funcConfig(ActorSystemConfig.Setup())));
         });
@@ -27,7 +31,7 @@ public static class DependencyInjectionExtensions
         services.AddSingleton(sp =>
         {
             var funcRootContext = sp.GetServices<FuncRootContext>()
-                                    .Reduce((x, y) => x + y);
+                                    .Reduce((x, y) => z => y(x(z)));
 
             return funcRootContext(sp.GetService<RootContext>());
         });

@@ -14,7 +14,7 @@ public partial class ProtoActorService
 
     protected override Task OnInitializedAsync()
     {
-        ActorSystemStarts.Reduce((x, y) => x + y)(RootContext);
+        ActorSystemStarts.Reduce((x, y) => z => y(x(z)))(RootContext);
         return base.OnInitializedAsync();
     }
 }

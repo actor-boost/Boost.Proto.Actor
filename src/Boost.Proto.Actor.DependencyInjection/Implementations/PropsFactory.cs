@@ -8,6 +8,10 @@ public record PropsFactory<T>(IEnumerable<FuncProps> FuncProps,
     : IPropsFactory<T> where T : IActor
 {
     public Props Create(params object[] args)
-        => FuncProps.Reduce((x, y) => x + y)(Props.FromProducer(() => ActivatorUtilities.CreateInstance<T>(ServiceProvider, args)));
+    {
+        var func = FuncProps.Aggregate((x, y) => z => y(x(z)));
+        return func(Props.FromProducer(() => ActivatorUtilities.CreateInstance<T>(ServiceProvider, args)));
+    }
+        
 }
 

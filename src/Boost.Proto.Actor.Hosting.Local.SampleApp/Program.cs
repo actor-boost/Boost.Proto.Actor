@@ -12,6 +12,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
 builder.Host.UseProtoActor((sp, option) =>
 {
     option.FuncActorSystemStart = root =>

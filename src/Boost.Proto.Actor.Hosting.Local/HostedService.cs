@@ -9,7 +9,7 @@ namespace Boost.Proto.Actor.Hosting.Local
     {
         public Task StartAsync(CancellationToken cancellationToken)
         {
-            ActorSystemStarts.Reduce((x, y) => x + y)(Root);
+            ActorSystemStarts.Reduce((x, y) => z => y(x(z)))(Root);
             return Task.CompletedTask;
         }
 

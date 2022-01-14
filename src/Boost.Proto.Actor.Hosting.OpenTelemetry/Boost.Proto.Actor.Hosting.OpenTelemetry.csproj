@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="../common.props" />
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -8,11 +8,11 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="6.0.0" />
-    <PackageReference Include="Proto.OpenTelemetry" Version="0.26.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Boost.Proto.Actor.DependencyInjection\Boost.Proto.Actor.DependencyInjection.csproj" />
+    <ProjectReference Include="..\Boost.Proto.Actor.Opentelemetry\Boost.Proto.Actor.Opentelemetry.csproj" />
   </ItemGroup>
 
 </Project>

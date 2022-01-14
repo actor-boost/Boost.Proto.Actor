@@ -1,8 +1,8 @@
 using Boost.Proto.Actor.DependencyInjection;
+using Boost.Proto.Actor.Opentelemetry;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Proto;
-using Proto.OpenTelemetry;
 
 namespace Boost.Proto.Actor.OpenTelemetry;
 
@@ -20,15 +20,8 @@ public static class HostExtensions
                 return ret;
             });
 
-            services.AddSingleton(sp =>
-            {
-                var funcRootContext = sp.GetServices<FuncRootContext>()
-                                        .Reduce((x, y) => z => y(x(z)));
-
-                return funcRootContext(sp.GetService<RootContext>().WithTracing());
-            });
-
-            services.AddSingleton(new FuncProps(x => x.WithTracing()));
+            services.AddSingleton<FuncRootContext>(x => x.WithTracing());
+            services.AddSingleton<FuncProps>(x => x.WithTracing());
         });
 
         return host;

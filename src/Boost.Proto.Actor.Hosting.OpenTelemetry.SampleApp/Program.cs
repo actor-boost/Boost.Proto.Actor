@@ -2,6 +2,7 @@ using System.Reflection;
 using Boost.Proto.Actor.DependencyInjection;
 using Boost.Proto.Actor.Hosting.Cluster;
 using Boost.Proto.Actor.Hosting.OpenTelemetry.SampleApp.Actors;
+using Boost.Proto.Actor.Opentelemetry;
 using Boost.Proto.Actor.OpenTelemetry;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
@@ -16,7 +17,7 @@ builder.Services.AddOpenTelemetryTracing(builder =>
     builder.SetResourceBuilder(ResourceBuilder.CreateDefault()
                                               .AddService(AppDomain.CurrentDomain.FriendlyName))
            .SetSampler(new AlwaysOnSampler())
-           .AddSource("Proto.Actor")
+           .AddSource(ProtoTags.ActivitySourceName)
            .AddAspNetCoreInstrumentation()
            .AddConsoleExporter();
 });

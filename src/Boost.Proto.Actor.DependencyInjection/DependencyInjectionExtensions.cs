@@ -12,7 +12,7 @@ public static class DependencyInjectionExtensions
         services.AddSingleton<FuncActorSystem>(sp => _ => _);
         services.AddSingleton<FuncActorSystemConfig>(sp => _ => _);
         services.AddSingleton<FuncRootContext>(sp => _ => _);
-        services.AddSingleton<FuncActorSystemStart>(sp => _ => _);
+        services.AddSingleton<FuncIRootContext>(sp => _ => _);
 
         services.AddSingleton(sp =>
         {
@@ -31,9 +31,12 @@ public static class DependencyInjectionExtensions
         services.AddSingleton(sp =>
         {
             var funcRootContext = sp.GetServices<FuncRootContext>()
-                                    .Reduce((x, y) => z => y(x(z)));
+                                    .Reduce((x, y) => z => x(y(z)));
 
-            return funcRootContext(sp.GetService<RootContext>());
+            var funcIRootContext = sp.GetServices<FuncIRootContext>()
+                                     .Reduce((x, y) => z => x(y(z)));
+
+            return funcIRootContext(funcRootContext(sp.GetService<RootContext>()));
         });
         return services;
     }

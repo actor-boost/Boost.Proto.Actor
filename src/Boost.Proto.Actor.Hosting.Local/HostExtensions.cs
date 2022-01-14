@@ -20,6 +20,7 @@ public static class HostExtensions
             });
 
             services.AddSingleton(sp => new FuncRootContext(sp.GetService<HostOption>()!.FuncRootContext));
+            services.AddSingleton(sp => new FuncIRootContext(sp.GetService<HostOption>()!.FuncIRootContext));
             services.AddSingleton(sp => new FuncActorSystem(sp.GetService<HostOption>()!.FuncActorSystem));
             services.AddSingleton(sp => new FuncActorSystemConfig(sp.GetService<HostOption>()!.FuncActorSystemConfig));
             services.AddSingleton(sp => new FuncActorSystemStart(sp.GetService<HostOption>()!.FuncActorSystemStart));

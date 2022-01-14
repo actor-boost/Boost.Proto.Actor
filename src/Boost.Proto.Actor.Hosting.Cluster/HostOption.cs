@@ -29,6 +29,7 @@ public class HostOption
     public string AdvertisedHost { get; set; }
     public Func<ActorSystemConfig, ActorSystemConfig> FuncActorSystemConfig { get; set; } = _ => _;
     public Func<ActorSystem, ActorSystem> FuncActorSystem { get; set; } = _ => _;
-    public Func<IRootContext, IRootContext> FuncRootContext { get; set; } = _ => _;
+    public Func<RootContext, RootContext> FuncRootContext { get; set; } = _ => _;
+    public Func<IRootContext, IRootContext> FuncIRootContext { get; set; } = _ => _;
     public Func<IRootContext, IRootContext> FuncActorSystemStart { get; set; } = _ => _;
 }

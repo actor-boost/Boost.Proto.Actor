@@ -32,7 +32,7 @@ public class HostOption
     public RemoteProviderType RemoteProvider { get; set; } = RemoteProviderType.GrpcNet;
     public ClusterProviderType ClusterProvider { get; set; }
     public IList<(string, Props)> ClusterKinds { get; } = new List<(string, Props)>();
-    public IEnumerable<FileDescriptor> ProtoMessages { get; set; } = Array.Empty<FileDescriptor>();
+    public IList<FileDescriptor> ProtoMessages { get; } = new List<FileDescriptor>();
     public IConfiguration Configuration { get; }
     public string AdvertisedHost { get; set; }
     public Func<ActorSystemConfig, ActorSystemConfig> FuncActorSystemConfig { get; set; } = _ => _;

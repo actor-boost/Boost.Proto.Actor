@@ -1,0 +1,19 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+
+
+exporters:
+  jaeger_thrift:
+    endpoint: "http://jaeger-all-in-one:14268/api/traces"
+
+processors:
+  batch:
+
+service:
+  pipelines:
+    traces:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [jaeger_thrift]

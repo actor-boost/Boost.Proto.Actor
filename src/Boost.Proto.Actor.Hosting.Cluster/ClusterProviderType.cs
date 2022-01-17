@@ -1,7 +1,8 @@
-﻿namespace Boost.Proto.Actor.Hosting.Cluster;
+namespace Boost.Proto.Actor.Hosting.Cluster;
 
 public enum ClusterProviderType
 {
     Local,
-    Kubernetes
+    Kubernetes,
+    Consul,
 }

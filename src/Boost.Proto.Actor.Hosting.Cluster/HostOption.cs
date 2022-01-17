@@ -14,14 +14,22 @@ public class HostOption
             null => "127.0.0.1",
             var m => m,
         };
+
         ClusterProvider = AdvertisedHost switch
         {
             "127.0.0.1" => ClusterProviderType.Local,
             _ => ClusterProviderType.Kubernetes,
         };
+
+        ClusterProvider = configuration["ProtoActor:Cluster"] switch
+        {
+            string x when x.ToUpper() is "CONSUL" => ClusterProviderType.Consul,
+            _ => ClusterProvider
+        };
     }
 
     public string ClusterName { get; set; }
+    public RemoteProviderType RemoteProvider { get; set; } = RemoteProviderType.GrpcNet;
     public ClusterProviderType ClusterProvider { get; set; }
     public IList<(string, Props)> ClusterKinds { get; } = new List<(string, Props)>();
     public IEnumerable<FileDescriptor> ProtoMessages { get; set; } = Array.Empty<FileDescriptor>();

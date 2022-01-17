@@ -4,10 +4,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Proto;
 using Proto.Cluster;
+using Proto.Cluster.Consul;
 using Proto.Cluster.Kubernetes;
 using Proto.Cluster.Partition;
 using Proto.Cluster.Testing;
 using Proto.Remote;
+using Proto.Remote.GrpcCore;
 using Proto.Remote.GrpcNet;
 
 namespace Boost.Proto.Actor.Hosting.Cluster;
@@ -45,19 +47,32 @@ public static class HostExtensions
                 return sp.GetService<HostOption>().ClusterProvider switch
                 {
                     ClusterProviderType.Kubernetes => ActivatorUtilities.CreateInstance<KubernetesProvider>(sp),
+                    ClusterProviderType.Consul => ActivatorUtilities.CreateInstance<ConsulProvider>(sp, new ConsulProviderConfig()),
                     _ => new TestProvider(new TestProviderOptions(), new InMemAgent())
                 };
             });
 
-            services.AddSingleton<GrpcNetRemoteConfig>(sp =>
+            services.AddSingleton(sp =>
             {
                 var option = sp.GetService<HostOption>();
 
                 return option.ClusterProvider switch
                 {
-                    ClusterProviderType.Kubernetes => GrpcNetRemoteConfig.BindToAllInterfaces(option.AdvertisedHost)
-                                                                         .WithProtoMessages(option.ProtoMessages.ToArray()),
-                    _ => GrpcNetRemoteConfig.BindToLocalhost()
+                    ClusterProviderType.Local => GrpcNetRemoteConfig.BindToLocalhost(),
+                    _ => GrpcNetRemoteConfig.BindToAllInterfaces(option.AdvertisedHost)
+                                            .WithProtoMessages(option.ProtoMessages.ToArray())
+                };
+            });
+
+            services.AddSingleton(sp =>
+            {
+                var option = sp.GetService<HostOption>();
+
+                return option.ClusterProvider switch
+                {
+                    ClusterProviderType.Local => GrpcCoreRemoteConfig.BindToLocalhost(),
+                    _ => GrpcCoreRemoteConfig.BindToAllInterfaces(option.AdvertisedHost)
+                                             .WithProtoMessages(option.ProtoMessages.ToArray())
                 };
             });
 
@@ -70,24 +85,31 @@ public static class HostExtensions
                                     .WithClusterKinds(option.ClusterKinds.ToArray());
             });
 
-            services.AddSingleton(sp =>
+            services.AddSingleton<FuncActorSystem>(sp =>
             {
+                var option = sp.GetService<HostOption>();
                 var clusterConfig = sp.GetService<ClusterConfig>();
-                var remoteConfig = sp.GetService<GrpcNetRemoteConfig>();
 
-                return new FuncActorSystem(x => x.WithRemote(remoteConfig)
-                                                 .WithCluster(clusterConfig));
+                return x =>
+                {
+                    var y = option.RemoteProvider switch
+                    {
+                        RemoteProviderType.GrpcCore => x.WithRemote(sp.GetService<GrpcCoreRemoteConfig>()),
+                        _ => x.WithRemote(sp.GetService<GrpcNetRemoteConfig>())
+                    };
+
+                    return y.WithCluster(clusterConfig);
+                };
             });
 
-            services.AddSingleton(sp =>
+            services.AddSingleton<FuncActorSystemConfig>(sp =>
             {
                 var option = sp.GetService<HostOption>();
 
-                return new FuncActorSystemConfig(
-                   x => x.WithDeveloperSupervisionLogging(true)
-                         .WithDeadLetterRequestLogging(true)
-                         .WithDeveloperThreadPoolStatsLogging(true)
-                         .WithDeveloperReceiveLogging(TimeSpan.FromSeconds(5)));
+                return x => x.WithDeveloperSupervisionLogging(true)
+                             .WithDeadLetterRequestLogging(true)
+                             .WithDeveloperThreadPoolStatsLogging(true)
+                             .WithDeveloperReceiveLogging(TimeSpan.FromSeconds(5));
             });
         });
 

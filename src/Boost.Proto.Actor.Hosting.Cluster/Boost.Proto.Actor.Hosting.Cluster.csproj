@@ -7,8 +7,10 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Proto.Cluster" Version="0.26.0" />
+    <PackageReference Include="Proto.Cluster.Consul" Version="0.26.0" />
     <PackageReference Include="Proto.Cluster.Kubernetes" Version="0.26.0" />
     <PackageReference Include="Proto.Cluster.TestProvider" Version="0.26.0" />
+    <PackageReference Include="Proto.Remote.GrpcCore" Version="0.26.0" />
     <PackageReference Include="Proto.Remote.GrpcNet" Version="0.26.0" />
   </ItemGroup>
 

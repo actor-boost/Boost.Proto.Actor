@@ -1,8 +1,8 @@
-using Boost.Proto.Actor.BlazorWasm;
 using Boost.Proto.Actor.DependencyInjection;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace Microsoft.Extensions.DependencyInjection;
+namespace Boost.Proto.Actor.BlazorWasm;
 
 public static class DependencyInjectionExtensions
 {

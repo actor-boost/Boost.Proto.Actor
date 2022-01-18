@@ -61,6 +61,7 @@ public static class HostExtensions
                     ClusterProviderType.Local => GrpcNetRemoteConfig.BindToLocalhost(),
                     _ => GrpcNetRemoteConfig.BindToAllInterfaces(option.AdvertisedHost)
                                             .WithProtoMessages(option.ProtoMessages.ToArray())
+                                            .WithSerializer(10, -50, new ProtobufNetSerializer.ProtobufNetSerializer())
                 };
             });
 
@@ -73,6 +74,7 @@ public static class HostExtensions
                     ClusterProviderType.Local => GrpcCoreRemoteConfig.BindToLocalhost(),
                     _ => GrpcCoreRemoteConfig.BindToAllInterfaces(option.AdvertisedHost)
                                              .WithProtoMessages(option.ProtoMessages.ToArray())
+                                             .WithSerializer(10, -50, new ProtobufNetSerializer.ProtobufNetSerializer())
                 };
             });
 

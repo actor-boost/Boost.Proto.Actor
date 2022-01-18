@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Proto;
 
-namespace Boost.Proto.Actor.OpenTelemetry;
+namespace Boost.Proto.Actor.Hosting.OpenTelemetry;
 
 public static class HostExtensions
 {

@@ -1,3 +1,4 @@
+using Boost.Proto.Actor.BlazorWasm;
 using Boost.Proto.Actor.BlazorWasm.SampleApp;
 using Boost.Proto.Actor.BlazorWasm.SampleApp.Actors.Counter;
 using Boost.Proto.Actor.DependencyInjection;

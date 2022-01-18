@@ -1,3 +1,4 @@
+using Boost.Proto.Actor.Hosting.OpenTelemetry.SampleApp.Models;
 using ProtoBuf;
 
 namespace Boost.Proto.Actor.Hosting.OpenTelemetry.SampleApp.Messages;
@@ -6,4 +7,6 @@ namespace Boost.Proto.Actor.Hosting.OpenTelemetry.SampleApp.Messages;
 public record HelloRequest();
 
 [ProtoContract(SkipConstructor = true, ImplicitFields = ImplicitFields.AllPublic)]
-public record HelloResponse(string Count);
+public record HelloResponse(string Count, Name Name);
+
+

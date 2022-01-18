@@ -18,6 +18,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Boost.Proto.Actor.Hosting.Cluster\Boost.Proto.Actor.Hosting.Cluster.csproj" />
     <ProjectReference Include="..\Boost.Proto.Actor.Hosting.Logging\Boost.Proto.Actor.Hosting.Logging.csproj" />
+    <ProjectReference Include="..\Boost.Proto.Actor.Hosting.OpenTelemetry.SampleApp.Models\Boost.Proto.Actor.Hosting.OpenTelemetry.SampleApp.Models.csproj" />
     <ProjectReference Include="..\Boost.Proto.Actor.Hosting.OpenTelemetry\Boost.Proto.Actor.Hosting.OpenTelemetry.csproj" />
   </ItemGroup>
 

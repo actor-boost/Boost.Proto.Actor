@@ -5,7 +5,8 @@ using Xunit;
 
 namespace Boost.Proto.Actor.ProtobufNetSerializer.Tests;
 
-record Hello(string Id, IReadOnlyList<string> Words);
+[ProtoContract(SkipConstructor = true, ImplicitFields = ImplicitFields.AllPublic)]
+public record Hello(string Id, IReadOnlyList<string> Words);
 
 public class ProtobufNetSerializerSpec
 {

@@ -39,6 +39,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Boost.Proto.Actor.Hosting.O
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Boost.Proto.Actor.Hosting.OpenTelemetry.SampleApp.Back", "Boost.Proto.Actor.Hosting.OpenTelemetry.SampleApp.Back\Boost.Proto.Actor.Hosting.OpenTelemetry.SampleApp.Back.csproj", "{DB4FD61C-A7E7-4FDD-8A05-28A97C103050}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Boost.Proto.Actor.Hosting.OpenTelemetry.SampleApp.Models", "Boost.Proto.Actor.Hosting.OpenTelemetry.SampleApp.Models\Boost.Proto.Actor.Hosting.OpenTelemetry.SampleApp.Models.csproj", "{763366F0-922D-4674-81FD-86F705027DF0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -113,6 +115,10 @@ Global
 		{DB4FD61C-A7E7-4FDD-8A05-28A97C103050}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DB4FD61C-A7E7-4FDD-8A05-28A97C103050}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DB4FD61C-A7E7-4FDD-8A05-28A97C103050}.Release|Any CPU.Build.0 = Release|Any CPU
+		{763366F0-922D-4674-81FD-86F705027DF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{763366F0-922D-4674-81FD-86F705027DF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{763366F0-922D-4674-81FD-86F705027DF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{763366F0-922D-4674-81FD-86F705027DF0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -121,6 +127,7 @@ Global
 		{9BC8F4A2-E09E-4036-A53F-DFA73409620D} = {09BCA4B6-3429-4C45-8C81-0D772015D0BC}
 		{9C5EFE3F-AC0F-461D-952F-2767CCD8AF33} = {09BCA4B6-3429-4C45-8C81-0D772015D0BC}
 		{DB4FD61C-A7E7-4FDD-8A05-28A97C103050} = {09BCA4B6-3429-4C45-8C81-0D772015D0BC}
+		{763366F0-922D-4674-81FD-86F705027DF0} = {09BCA4B6-3429-4C45-8C81-0D772015D0BC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B68882E6-067A-4700-A8E9-1E9E80DF0BD7}

@@ -32,11 +32,11 @@ jobs:
     - name: Test
       run: |	  
         cd src	
-        dotnet clean 	        
-        dotnet restore	      
         dotnet test --logger "junit;LogFileName=Report.xml"
-        sleep 2s
-        dotnet test /p:AltCover=true /p:AltCoverReport="altcover.xml" /p:AltCoverAssemblyExcludeFilter='(xunit.*)|(System.*)|(.*Tests)'
+    - name: Test
+      run: |	  
+        cd src	
+        dotnet test /p:AltCover=true /p:AltCoverReport="altcover.xml" /p:AltCoverAssemblyExcludeFilter='(xunit.*)|(System.*)|(.*Tests)'        
     - name: ReportGenerator
       uses: danielpalme/ReportGenerator-GitHub-Action@4.8.4
       with:

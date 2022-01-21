@@ -9,7 +9,7 @@ namespace Boost.Proto.Actor.Hosting.OpenTelemetry;
 public static class HostExtensions
 {
     public static IHostBuilder UseProtoActorOpenTelemetry(this IHostBuilder host,
-                                                          Action<IServiceProvider, HostOption> config)
+                                                          Action<IServiceProvider, HostOption> config = null)
     {
         host.ConfigureServices((context, services) =>
         {

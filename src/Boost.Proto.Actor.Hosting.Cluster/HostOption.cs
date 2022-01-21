@@ -1,6 +1,8 @@
 using Google.Protobuf.Reflection;
 using Microsoft.Extensions.Configuration;
 using Proto;
+using Proto.Cluster;
+using ProtoClutser = Proto.Cluster.Cluster;
 
 namespace Boost.Proto.Actor.Hosting.Cluster;
 
@@ -31,7 +33,7 @@ public class HostOption
     public string ClusterName { get; set; }
     public RemoteProviderType RemoteProvider { get; set; } = RemoteProviderType.GrpcNet;
     public ClusterProviderType ClusterProvider { get; set; }
-    public IList<(string, Props)> ClusterKinds { get; } = new List<(string, Props)>();
+    public IList<ClusterKind> ClusterKinds { get; } = new List<ClusterKind>();
     public IList<FileDescriptor> ProtoMessages { get; } = new List<FileDescriptor>();
     public IConfiguration Configuration { get; }
     public string AdvertisedHost { get; set; }
@@ -40,4 +42,5 @@ public class HostOption
     public Func<RootContext, RootContext> FuncRootContext { get; set; } = _ => _;
     public Func<IRootContext, IRootContext> FuncIRootContext { get; set; } = _ => _;
     public Func<IRootContext, IRootContext> FuncActorSystemStart { get; set; } = _ => _;
+    public Func<ProtoClutser, string, IMemberStrategy> MemberStrategyBuilder { get; set; } = (a, b) => null;
 }

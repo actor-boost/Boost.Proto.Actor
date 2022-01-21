@@ -7,6 +7,7 @@ using Boost.Proto.Actor.Opentelemetry;
 using k8s.KubeConfigModels;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
+using Proto.Cluster;
 using Proto;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -27,11 +28,11 @@ builder.Services.AddOpenTelemetryTracing(builder =>
 builder.Host.UseProtoActorCluster((sp, option) =>
 {
     option.ClusterName = "Sample";
-    option.ClusterKinds.Add((nameof(HelloActor), sp.GetService<IPropsFactory<HelloActor>>().Create()));
+    option.ClusterKinds.Add(new ClusterKind("HelloActor", sp.GetService<IPropsFactory<HelloActor>>().Create()).WithLocalAffinityRelocationStrategy());
 });
-builder.Host.UseProtoActorLogging((sp, option) => { });
+builder.Host.UseProtoActorLogging();
 
-builder.Host.UseProtoActorOpenTelemetry((sp, option) => { });
+builder.Host.UseProtoActorOpenTelemetry();
 
 var app = builder.Build();
 

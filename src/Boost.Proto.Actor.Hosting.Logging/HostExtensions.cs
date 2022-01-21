@@ -9,7 +9,7 @@ namespace Boost.Proto.Actor.Hosting.Logging;
 public static class HostExtensions
 {
     public static IHostBuilder UseProtoActorLogging(this IHostBuilder host,
-                                                    Action<IServiceProvider, HostOption> config)
+                                                    Action<IServiceProvider, HostOption> config = null)
     {
         host.ConfigureServices((context, services) =>
         {

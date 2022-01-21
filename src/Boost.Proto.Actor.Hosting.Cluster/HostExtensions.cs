@@ -81,10 +81,12 @@ public static class HostExtensions
             services.AddSingleton(sp =>
             {
                 var option = sp.GetService<HostOption>();
+                var clusterKinds = sp.GetService<IEnumerable<ClusterKind>>();
                 return ClusterConfig.Setup(option.ClusterName,
                                            sp.GetService<IClusterProvider>(),
                                            new PartitionIdentityLookup())
-                                    .WithClusterKinds(option.ClusterKinds.ToArray());
+                                    .WithClusterKinds(option.ClusterKinds.ToArray())
+                                    .WithClusterKinds(clusterKinds?.ToArray() ?? Array.Empty<ClusterKind>());
             });
 
             services.AddSingleton<FuncActorSystem>(sp =>

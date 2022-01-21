@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Boost.Proto.Actor.DependencyInjection.Implementations;
+namespace Boost.Proto.Actor.DependencyInjection;
 
 public record PropsFactory<T>(IEnumerable<FuncProps> FuncProps,
                               IServiceProvider ServiceProvider)
@@ -12,6 +12,5 @@ public record PropsFactory<T>(IEnumerable<FuncProps> FuncProps,
         var func = FuncProps.Aggregate((x, y) => z => y(x(z)));
         return func(Props.FromProducer(() => ActivatorUtilities.CreateInstance<T>(ServiceProvider, args)));
     }
-        
-}
 
+}

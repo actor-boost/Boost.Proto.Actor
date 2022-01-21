@@ -1,4 +1,3 @@
-using Boost.Proto.Actor.DependencyInjection.Implementations;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 

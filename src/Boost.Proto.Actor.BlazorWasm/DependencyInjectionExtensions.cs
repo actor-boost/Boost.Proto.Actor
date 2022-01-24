@@ -10,7 +10,7 @@ public static class DependencyInjectionExtensions
                                                        Action<IServiceProvider, ProtoActorWasmOption> config)
     {
         builder.Services.AddProtoActorWasm(config);
-        builder.RootComponents.Add<ProtoActorService>("#app::after");
+        //builder.RootComponents.Add<ProtoActorService>("#app::after");
         return builder;
     }
 

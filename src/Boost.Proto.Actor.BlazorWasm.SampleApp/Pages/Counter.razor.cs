@@ -16,11 +16,13 @@ public partial class Counter
     protected override void OnInitialized()
     {
         Command = c => Context.Send(new PID(Context.System.Address, nameof(CounterActor)), c);
-        Command(new ViewInitialized());
+        
         var a = Context.System.EventStream.Subscribe<CounterState>(s =>
         {
             State = s;
             StateHasChanged();
         });
+
+        Command(new ViewInitialized());
     }
 }

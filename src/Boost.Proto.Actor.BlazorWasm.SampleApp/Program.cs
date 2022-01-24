@@ -16,13 +16,15 @@ builder.UseProtoActor((sp, option) =>
     option.FuncActorSystemStart = root =>
     {
         root.SpawnNamed(sp.GetService<IPropsFactory<CounterActor>>()
-                          .Create(new CounterState(0)), nameof(CounterActor));
+                          .Create(new CounterState(10)), nameof(CounterActor));
 
         return root;
     };
 });
 
 var app = builder.Build();
+
+app.RunProtoActor();
 
 await app.RunAsync();
 

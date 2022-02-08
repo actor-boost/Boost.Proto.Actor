@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="../common.props" />
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MessagePack" Version="2.3.85" />
+    <PackageReference Include="Proto.Remote" Version="0.27.1-alpha.0.4" />
+  </ItemGroup>
+  
+</Project>

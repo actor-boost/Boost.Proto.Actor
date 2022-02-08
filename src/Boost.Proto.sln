@@ -41,7 +41,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Boost.Proto.Actor.Hosting.O
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Boost.Proto.Actor.Hosting.OpenTelemetry.SampleApp.Models", "Boost.Proto.Actor.Hosting.OpenTelemetry.SampleApp.Models\Boost.Proto.Actor.Hosting.OpenTelemetry.SampleApp.Models.csproj", "{763366F0-922D-4674-81FD-86F705027DF0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Boost.Proto.Actor.Hosting.OpenTelemetry.SampleApp.Front.Tests", "Boost.Proto.Actor.Hosting.OpenTelemetry.SampleApp.Front.Tests\Boost.Proto.Actor.Hosting.OpenTelemetry.SampleApp.Front.Tests.csproj", "{855040C1-E179-47A1-AFCC-0F45B21DC223}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Boost.Proto.Actor.Hosting.OpenTelemetry.SampleApp.Front.Tests", "Boost.Proto.Actor.Hosting.OpenTelemetry.SampleApp.Front.Tests\Boost.Proto.Actor.Hosting.OpenTelemetry.SampleApp.Front.Tests.csproj", "{855040C1-E179-47A1-AFCC-0F45B21DC223}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Boost.Proto.Actor.MessagePackSerializer", "Boost.Proto.Actor.MessagePackSerializer\Boost.Proto.Actor.MessagePackSerializer.csproj", "{CD7D8F76-EF75-4956-A09D-2F40489F09F3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -125,6 +127,10 @@ Global
 		{855040C1-E179-47A1-AFCC-0F45B21DC223}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{855040C1-E179-47A1-AFCC-0F45B21DC223}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{855040C1-E179-47A1-AFCC-0F45B21DC223}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD7D8F76-EF75-4956-A09D-2F40489F09F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD7D8F76-EF75-4956-A09D-2F40489F09F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD7D8F76-EF75-4956-A09D-2F40489F09F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD7D8F76-EF75-4956-A09D-2F40489F09F3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

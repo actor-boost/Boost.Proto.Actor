@@ -6,6 +6,8 @@ namespace Boost.Proto.Actor.MessagePackSerializer
 {
     public record MessagePackSerializer() : ISerializer
     {
+        public static object Typeless { get; internal set; }
+
         public bool CanSerialize(object obj) => true;
         public object Deserialize(ByteString bytes, string typeName)
         {

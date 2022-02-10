@@ -6,16 +6,13 @@ namespace Boost.Proto.Actor.MessagePackSerializer
 {
     public record MessagePackSerializer() : ISerializer
     {
-        public static object Typeless { get; internal set; }
-
         public bool CanSerialize(object obj) => true;
-        public object Deserialize(ByteString bytes, string typeName)
-        {
-            return MessagePack.MessagePackSerializer
-                              .Typeless
-                              .Deserialize(MemoryMarshal.AsMemory(bytes.Memory));
-        }
-        public string GetTypeName(object message) => string.Empty;
+        public object Deserialize(ByteString bytes, string typeName) =>
+            MessagePack.MessagePackSerializer
+                       .Typeless
+                       .Deserialize(MemoryMarshal.AsMemory(bytes.Memory));
+        public string GetTypeName(object message) =>
+            message?.GetType()?.AssemblyQualifiedName ?? throw new ArgumentNullException(nameof(message));
         public ByteString Serialize(object obj)
         {
             using var ms = new MemoryStream();   

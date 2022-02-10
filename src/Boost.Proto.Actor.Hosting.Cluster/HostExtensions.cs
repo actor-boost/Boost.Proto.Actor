@@ -1,4 +1,5 @@
 using Boost.Proto.Actor.DependencyInjection;
+using Boost.Proto.Actor.MessagePackSerializer;
 using k8s;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -22,6 +23,7 @@ public static class HostExtensions
     {
         host.ConfigureServices((context, services) =>
         {
+            services.AddMessagePack();
             services.AddProtoActor();
             services.AddHostedService<HostedService>();
 
@@ -61,7 +63,7 @@ public static class HostExtensions
                     ClusterProviderType.Local => GrpcNetRemoteConfig.BindToLocalhost(),
                     _ => GrpcNetRemoteConfig.BindToAllInterfaces(option.AdvertisedHost)
                                             .WithProtoMessages(option.ProtoMessages.ToArray())
-                                            //.WithSerializer(10, -50, new ProtobufNetSerializer.ProtobufNetSerializer())
+                                            .WithSerializer(11, -50, sp.GetService<MessagePackSerializer.MessagePackSerializer>())
                 };
             });
 
@@ -74,7 +76,7 @@ public static class HostExtensions
                     ClusterProviderType.Local => GrpcCoreRemoteConfig.BindToLocalhost(),
                     _ => GrpcCoreRemoteConfig.BindToAllInterfaces(option.AdvertisedHost)
                                              .WithProtoMessages(option.ProtoMessages.ToArray())
-                                             //.WithSerializer(10, -50, new ProtobufNetSerializer.ProtobufNetSerializer())
+                                             .WithSerializer(11, -50, sp.GetService<MessagePackSerializer.MessagePackSerializer>())
                 };
             });
 

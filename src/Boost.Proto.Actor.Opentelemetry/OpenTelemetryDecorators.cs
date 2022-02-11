@@ -4,6 +4,7 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using Boost.Proto.Actor.Opentelemetry;
+using LanguageExt;
 using OpenTelemetry.Trace;
 
 using Proto.Mailbox;

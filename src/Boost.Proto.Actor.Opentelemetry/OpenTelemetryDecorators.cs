@@ -158,7 +158,16 @@ namespace Boost.Proto.Actor.Opentelemetry
             try
             {
                 activity?.SetTag(ProtoTags.TargetPID, target.ToString());
-                return await requestAsync().ConfigureAwait(false);
+                var ret = await requestAsync().ConfigureAwait(false);
+
+                activity?.SetTag(ProtoTags.ResponseType, ret switch
+                {
+                    IEither m => m.MatchUntyped(x => x.GetType().Name,
+                                                x => x.GetType().Name),
+                    var m => m.GetType().Name
+                });
+
+                return ret;
             }
             catch (Exception ex)
             {

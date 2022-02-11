@@ -1,4 +1,4 @@
-﻿namespace Boost.Proto.Actor.Opentelemetry
+namespace Boost.Proto.Actor.Opentelemetry
 {
     public static class ProtoTags
     {
@@ -29,5 +29,7 @@
         ///     Type of the current actor, when applicable
         /// </summary>
         public const string ActorType = "proto.actortype";
+
+        public const string ResponseType = "proto.respnsetype";
     }
 }

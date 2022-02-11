@@ -1,6 +1,6 @@
+using System.Runtime.InteropServices;
 using Google.Protobuf;
 using Proto.Remote;
-using System.Runtime.InteropServices;
 
 namespace Boost.Proto.Actor.MessagePackSerializer
 {
@@ -11,11 +11,10 @@ namespace Boost.Proto.Actor.MessagePackSerializer
             MessagePack.MessagePackSerializer
                        .Typeless
                        .Deserialize(MemoryMarshal.AsMemory(bytes.Memory));
-        public string GetTypeName(object message) =>
-            message?.GetType()?.AssemblyQualifiedName ?? throw new ArgumentNullException(nameof(message));
+        public string GetTypeName(object message) => string.Empty;
         public ByteString Serialize(object obj)
         {
-            using var ms = new MemoryStream();   
+            using var ms = new MemoryStream();
             MessagePack.MessagePackSerializer
                        .Typeless
                        .Serialize(ms, obj);

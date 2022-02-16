@@ -38,7 +38,7 @@ namespace Boost.Proto.Actor.Opentelemetry
             );
     }
 
-    class OpenTelemetryActorContextDecorator : ActorContextDecorator
+    public class OpenTelemetryActorContextDecorator : ActorContextDecorator
     {
         private static readonly ActivitySource ActivitySource = new(ProtoTags.ActivitySourceName);
 
@@ -51,8 +51,8 @@ namespace Boost.Proto.Actor.Opentelemetry
             ActivitySetup receiveActivitySetup
         ) : base(context)
         {
-            var actorType = context.Actor.GetType().Name;
-            var self = context.Self.ToString();
+            var actorType = context?.Actor?.GetType().Name;
+            var self = context?.Self?.ToString();
             _sendActivitySetup = (activity, message) =>
             {
                 activity?.SetTag(ProtoTags.ActorType, actorType);
@@ -68,17 +68,6 @@ namespace Boost.Proto.Actor.Opentelemetry
                 receiveActivitySetup(activity, message);
             };
         }
-
-        //public override void Send(PID target, object message)
-        //    => OpenTelemetryMethodsDecorators.Send(target, message, _sendActivitySetup, () => base.Send(target, message));
-
-        //public override Task<T> RequestAsync<T>(PID target, object message, CancellationToken cancellationToken)
-        //    => OpenTelemetryMethodsDecorators.RequestAsync(target, message, _sendActivitySetup,
-        //        () => base.RequestAsync<T>(target, message, cancellationToken)
-        //    );
-
-        //public override void Request(PID target, object message, PID? sender)
-        //    => OpenTelemetryMethodsDecorators.Request(target, message, sender, _sendActivitySetup, () => base.Request(target, message, sender));
 
         public override PID SpawnNamed(Props props, string name)
         {
@@ -100,7 +89,12 @@ namespace Boost.Proto.Actor.Opentelemetry
 
         public override void Respond(object message)
         {
-            Activity.Current?.AddTag("Actor.Respond.Message", message.GetType());
+            Activity.Current?.AddTag(ProtoTags.ResponseType, message switch
+            {
+                IEither m => m.MatchUntyped(x => x.GetType().Name,
+                                            x => x.GetType().Name),
+                var m => m.GetType().Name
+            });
             base.Respond(message);
         }
 
@@ -185,16 +179,7 @@ namespace Boost.Proto.Actor.Opentelemetry
             try
             {
                 activity?.SetTag(ProtoTags.TargetPID, target.ToString());
-                var ret = await requestAsync().ConfigureAwait(false);
-
-                activity?.SetTag(ProtoTags.ResponseType, ret switch
-                {
-                    IEither m => m.MatchUntyped(x => x.GetType().Name,
-                                                x => x.GetType().Name),
-                    var m => m.GetType().Name
-                });
-
-                return ret;
+                return await requestAsync().ConfigureAwait(false);
             }
             catch (Exception ex)
             {

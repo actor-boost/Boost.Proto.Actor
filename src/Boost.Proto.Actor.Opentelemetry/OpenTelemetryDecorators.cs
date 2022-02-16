@@ -40,6 +40,8 @@ namespace Boost.Proto.Actor.Opentelemetry
 
     class OpenTelemetryActorContextDecorator : ActorContextDecorator
     {
+        private static readonly ActivitySource ActivitySource = new(ProtoTags.ActivitySourceName);
+
         private readonly ActivitySetup _receiveActivitySetup;
         private readonly ActivitySetup _sendActivitySetup;
 
@@ -67,16 +69,40 @@ namespace Boost.Proto.Actor.Opentelemetry
             };
         }
 
-        public override void Send(PID target, object message)
-            => OpenTelemetryMethodsDecorators.Send(target, message, _sendActivitySetup, () => base.Send(target, message));
+        //public override void Send(PID target, object message)
+        //    => OpenTelemetryMethodsDecorators.Send(target, message, _sendActivitySetup, () => base.Send(target, message));
 
-        public override Task<T> RequestAsync<T>(PID target, object message, CancellationToken cancellationToken)
-            => OpenTelemetryMethodsDecorators.RequestAsync(target, message, _sendActivitySetup,
-                () => base.RequestAsync<T>(target, message, cancellationToken)
-            );
+        //public override Task<T> RequestAsync<T>(PID target, object message, CancellationToken cancellationToken)
+        //    => OpenTelemetryMethodsDecorators.RequestAsync(target, message, _sendActivitySetup,
+        //        () => base.RequestAsync<T>(target, message, cancellationToken)
+        //    );
 
-        public override void Request(PID target, object message, PID? sender)
-            => OpenTelemetryMethodsDecorators.Request(target, message, sender, _sendActivitySetup, () => base.Request(target, message, sender));
+        //public override void Request(PID target, object message, PID? sender)
+        //    => OpenTelemetryMethodsDecorators.Request(target, message, sender, _sendActivitySetup, () => base.Request(target, message, sender));
+
+        public override PID SpawnNamed(Props props, string name)
+        {
+            if (Activity.Current is not null)
+            {
+                using var activity = ActivitySource.StartActivity("");
+                var pid = base.SpawnNamed(props, name);
+
+                if (activity is not null)
+                {
+                    activity.DisplayName = $"Spawned {pid}";
+                }
+
+                return pid;
+            }
+            else
+                return base.SpawnNamed(props, name);
+        }
+
+        public override void Respond(object message)
+        {
+            Activity.Current?.AddTag("Actor.Respond.Message", message.GetType());
+            base.Respond(message);
+        }
 
         public override void Forward(PID target)
             => OpenTelemetryMethodsDecorators.Forward(target, base.Message!, _sendActivitySetup, () => base.Forward(target));

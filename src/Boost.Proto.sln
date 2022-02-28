@@ -29,10 +29,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Boost.Proto.Actor.Hosting.L
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Boost.Proto.Actor.Opentelemetry", "Boost.Proto.Actor.Opentelemetry\Boost.Proto.Actor.Opentelemetry.csproj", "{632DB7A4-39D6-4ED1-93CA-5D902D12D5D1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Boost.Proto.Actor.ProtobufNetSerializer", "Boost.Proto.Actor.ProtobufNetSerializer\Boost.Proto.Actor.ProtobufNetSerializer.csproj", "{F4A5F673-84ED-4752-BDB3-F215D375E022}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Boost.Proto.Actor.ProtobufNetSerializer.Tests", "Boost.Proto.Actor.ProtobufNetSerializer.Tests\Boost.Proto.Actor.ProtobufNetSerializer.Tests.csproj", "{4A2A95FD-DB27-4DFD-9728-EC8A8F0D2877}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{09BCA4B6-3429-4C45-8C81-0D772015D0BC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Boost.Proto.Actor.Hosting.OpenTelemetry.SampleApp.Front", "Boost.Proto.Actor.Hosting.OpenTelemetry.SampleApp.Front\Boost.Proto.Actor.Hosting.OpenTelemetry.SampleApp.Front.csproj", "{9C5EFE3F-AC0F-461D-952F-2767CCD8AF33}"
@@ -45,7 +41,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Boost.Proto.Actor.Hosting.O
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Boost.Proto.Actor.MessagePackSerializer", "Boost.Proto.Actor.MessagePackSerializer\Boost.Proto.Actor.MessagePackSerializer.csproj", "{CD7D8F76-EF75-4956-A09D-2F40489F09F3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Boost.Proto.Actor.Opentelemetry.Tests", "Boost.Proto.Actor.Opentelemetry.Tests\Boost.Proto.Actor.Opentelemetry.Tests.csproj", "{3ACE440B-85FC-4F35-B9B1-134E2C4214D5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Boost.Proto.Actor.Opentelemetry.Tests", "Boost.Proto.Actor.Opentelemetry.Tests\Boost.Proto.Actor.Opentelemetry.Tests.csproj", "{3ACE440B-85FC-4F35-B9B1-134E2C4214D5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Boost.Proto.Actor.MessagePackSerializer.Tests", "Boost.Proto.Actor.MessagePackSerializer.Tests\Boost.Proto.Actor.MessagePackSerializer.Tests.csproj", "{FCA33247-F38A-4F5A-90CC-E9B6DAEB8624}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -105,14 +103,6 @@ Global
 		{632DB7A4-39D6-4ED1-93CA-5D902D12D5D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{632DB7A4-39D6-4ED1-93CA-5D902D12D5D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{632DB7A4-39D6-4ED1-93CA-5D902D12D5D1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F4A5F673-84ED-4752-BDB3-F215D375E022}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F4A5F673-84ED-4752-BDB3-F215D375E022}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F4A5F673-84ED-4752-BDB3-F215D375E022}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F4A5F673-84ED-4752-BDB3-F215D375E022}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4A2A95FD-DB27-4DFD-9728-EC8A8F0D2877}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4A2A95FD-DB27-4DFD-9728-EC8A8F0D2877}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4A2A95FD-DB27-4DFD-9728-EC8A8F0D2877}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4A2A95FD-DB27-4DFD-9728-EC8A8F0D2877}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9C5EFE3F-AC0F-461D-952F-2767CCD8AF33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9C5EFE3F-AC0F-461D-952F-2767CCD8AF33}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C5EFE3F-AC0F-461D-952F-2767CCD8AF33}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -137,6 +127,10 @@ Global
 		{3ACE440B-85FC-4F35-B9B1-134E2C4214D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3ACE440B-85FC-4F35-B9B1-134E2C4214D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3ACE440B-85FC-4F35-B9B1-134E2C4214D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FCA33247-F38A-4F5A-90CC-E9B6DAEB8624}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCA33247-F38A-4F5A-90CC-E9B6DAEB8624}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCA33247-F38A-4F5A-90CC-E9B6DAEB8624}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCA33247-F38A-4F5A-90CC-E9B6DAEB8624}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

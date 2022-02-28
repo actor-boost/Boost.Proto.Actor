@@ -11,7 +11,6 @@ namespace Boost.Proto.Actor.MessagePackSerializer
                 .Typeless
                 .DefaultOptions
                 .WithAllowAssemblyVersionMismatch(true)
-                //.WithCompression(MessagePackCompression.Lz4Block)
                 .WithOmitAssemblyVersion(true));
 
             services.AddSingleton(sp => ActivatorUtilities.CreateInstance<MessagePackSerializer>(sp));

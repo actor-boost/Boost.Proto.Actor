@@ -1,25 +1,23 @@
-using System.Runtime.InteropServices;
 using Google.Protobuf;
 using Proto.Remote;
+using Microsoft.Toolkit.HighPerformance;
+using MessagePack;
 
 namespace Boost.Proto.Actor.MessagePackSerializer
 {
-    public record MessagePackSerializer() : ISerializer
+    public record MessagePackSerializer(MessagePackSerializerOptions Options) : ISerializer
     {
         public bool CanSerialize(object obj) => true;
         public object Deserialize(ByteString bytes, string typeName) =>
             MessagePack.MessagePackSerializer
                        .Typeless
-                       .Deserialize(MemoryMarshal.AsMemory(bytes.Memory));
+                       .Deserialize(bytes.Memory.AsStream(), Options);
         public string GetTypeName(object message) => string.Empty;
-        public ByteString Serialize(object obj)
-        {
-            using var ms = new MemoryStream();
-            MessagePack.MessagePackSerializer
-                       .Typeless
-                       .Serialize(ms, obj);
-            ms.Position = 0;
-            return ByteString.FromStream(ms);
-        }
+        public ByteString Serialize(object obj) => 
+            ByteString.FromStream(MessagePack.MessagePackSerializer
+                                             .Typeless
+                                             .Serialize(obj, Options)
+                                             .AsMemory()
+                                             .AsStream());
     }
 }

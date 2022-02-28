@@ -34,19 +34,19 @@ public static class HostExtensions
                 return ret;
             });
 
-            services.AddSingleton(sp => new FuncActorSystem(sp.GetService<HostOption>().FuncActorSystem));
-            services.AddSingleton(sp => new FuncActorSystemConfig(sp.GetService<HostOption>().FuncActorSystemConfig));
-            services.AddSingleton(sp => new FuncRootContext(sp.GetService<HostOption>().FuncRootContext));
-            services.AddSingleton(sp => new FuncIRootContext(sp.GetService<HostOption>().FuncIRootContext));
-            services.AddSingleton(sp => new FuncActorSystemStart(sp.GetService<HostOption>().FuncActorSystemStart));
+            services.AddSingleton(sp => new FuncActorSystem(sp.GetRequiredService<HostOption>().FuncActorSystem));
+            services.AddSingleton(sp => new FuncActorSystemConfig(sp.GetRequiredService<HostOption>().FuncActorSystemConfig));
+            services.AddSingleton(sp => new FuncRootContext(sp.GetRequiredService<HostOption>().FuncRootContext));
+            services.AddSingleton(sp => new FuncIRootContext(sp.GetRequiredService<HostOption>().FuncIRootContext));
+            services.AddSingleton(sp => new FuncActorSystemStart(sp.GetRequiredService<HostOption>().FuncActorSystemStart));
 
             services.AddSingleton(sp => KubernetesClientConfiguration.InClusterConfig());
-            services.AddSingleton<IKubernetes>(sp => new Kubernetes(sp.GetService<KubernetesClientConfiguration>()));
-            services.AddSingleton(sp => sp.GetService<IRootContext>().System.Cluster());
+            services.AddSingleton<IKubernetes>(sp => new Kubernetes(sp.GetRequiredService<KubernetesClientConfiguration>()));
+            services.AddSingleton(sp => sp.GetRequiredService<IRootContext>().System.Cluster());
 
             services.AddSingleton<IClusterProvider>(sp =>
             {
-                return sp.GetService<HostOption>().ClusterProvider switch
+                return sp.GetRequiredService<HostOption>().ClusterProvider switch
                 {
                     ClusterProviderType.Kubernetes => ActivatorUtilities.CreateInstance<KubernetesProvider>(sp),
                     ClusterProviderType.Consul => ActivatorUtilities.CreateInstance<ConsulProvider>(sp, new ConsulProviderConfig()),
@@ -56,36 +56,36 @@ public static class HostExtensions
 
             services.AddSingleton(sp =>
             {
-                var option = sp.GetService<HostOption>();
+                var option = sp.GetRequiredService<HostOption>();
 
                 return option.ClusterProvider switch
                 {
                     ClusterProviderType.Local => GrpcNetRemoteConfig.BindToLocalhost(),
                     _ => GrpcNetRemoteConfig.BindToAllInterfaces(option.AdvertisedHost)
                                             .WithProtoMessages(option.ProtoMessages.ToArray())
-                                            .WithSerializer(11, -50, sp.GetService<MessagePackSerializer.MessagePackSerializer>())
+                                            .WithSerializer(11, -50, sp.GetRequiredService<MessagePackSerializer.MessagePackSerializer>())
                 };
             });
 
             services.AddSingleton(sp =>
             {
-                var option = sp.GetService<HostOption>();
+                var option = sp.GetRequiredService<HostOption>();
 
                 return option.ClusterProvider switch
                 {
                     ClusterProviderType.Local => GrpcCoreRemoteConfig.BindToLocalhost(),
                     _ => GrpcCoreRemoteConfig.BindToAllInterfaces(option.AdvertisedHost)
                                              .WithProtoMessages(option.ProtoMessages.ToArray())
-                                             .WithSerializer(11, -50, sp.GetService<MessagePackSerializer.MessagePackSerializer>())
+                                             .WithSerializer(11, -50, sp.GetRequiredService<MessagePackSerializer.MessagePackSerializer>())
                 };
             });
 
             services.AddSingleton(sp =>
             {
-                var option = sp.GetService<HostOption>();
-                var clusterKinds = sp.GetService<IEnumerable<ClusterKind>>();
+                var option = sp.GetRequiredService<HostOption>();
+                var clusterKinds = sp.GetRequiredService<IEnumerable<ClusterKind>>();
                 return ClusterConfig.Setup(option.ClusterName,
-                                           sp.GetService<IClusterProvider>(),
+                                           sp.GetRequiredService<IClusterProvider>(),
                                            new PartitionIdentityLookup())
                                     .WithClusterKinds(option.ClusterKinds.ToArray())
                                     .WithClusterKinds(clusterKinds?.ToArray() ?? Array.Empty<ClusterKind>());
@@ -93,15 +93,15 @@ public static class HostExtensions
 
             services.AddSingleton<FuncActorSystem>(sp =>
             {
-                var option = sp.GetService<HostOption>();
-                var clusterConfig = sp.GetService<ClusterConfig>();
+                var option = sp.GetRequiredService<HostOption>();
+                var clusterConfig = sp.GetRequiredService<ClusterConfig>();
 
                 return x =>
                 {
                     var y = option.RemoteProvider switch
                     {
-                        RemoteProviderType.GrpcCore => x.WithRemote(sp.GetService<GrpcCoreRemoteConfig>()),
-                        _ => x.WithRemote(sp.GetService<GrpcNetRemoteConfig>())
+                        RemoteProviderType.GrpcCore => x.WithRemote(sp.GetRequiredService<GrpcCoreRemoteConfig>()),
+                        _ => x.WithRemote(sp.GetRequiredService<GrpcNetRemoteConfig>())
                     };
 
                     return y.WithCluster(clusterConfig);
@@ -110,7 +110,7 @@ public static class HostExtensions
 
             services.AddSingleton<FuncActorSystemConfig>(sp =>
             {
-                var option = sp.GetService<HostOption>();
+                var option = sp.GetRequiredService<HostOption>();
 
                 return x => x.WithDeveloperSupervisionLogging(true)
                              .WithDeadLetterRequestLogging(true)

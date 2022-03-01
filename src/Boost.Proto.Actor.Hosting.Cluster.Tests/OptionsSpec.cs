@@ -33,17 +33,16 @@ public class OptionsSpec
     public async Task Test1Async()
     {
         using var appsettingsStream = Encoding.Default.GetBytes(@"
-{
-    ""Boost"" : {
-        ""Actor"" : {
-            ""Cluster"" : {
-                ""Name"" : ""UnitTest1"",
-                ""Provider"" : ""Local""
+        {
+          'Boost' : {
+            'Actor' : {
+              'Cluster' : {
+                'Name' : 'UnitTest1',
+                'Provider' : 'Local'
+              }
             }
-        }
-    }
-
-}").AsMemory().AsStream();
+          }
+        }".Replace('\'', '\"')).AsMemory().AsStream();
 
         var host = Host.CreateDefaultBuilder()
                        .ConfigureAppConfiguration(config =>

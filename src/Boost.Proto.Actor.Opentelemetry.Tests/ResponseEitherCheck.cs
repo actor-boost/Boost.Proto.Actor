@@ -2,8 +2,6 @@ using System.Diagnostics;
 using AutoFixture.Xunit2;
 using FluentAssertions;
 using LanguageExt;
-using Moq;
-using Proto;
 using Xunit;
 using static LanguageExt.Prelude;
 
@@ -13,7 +11,7 @@ namespace Boost.Proto.Actor.Opentelemetry.Tests
     public class OpenTelemetryActorContextDecoratorSpec
     {
         [Theory, AutoData]
-        public void ResponseEitherCheck(Mock<IContext> context)
+        public void ResponseEitherCheck()
         {
             Either<string, Unit> sut = unit;
 

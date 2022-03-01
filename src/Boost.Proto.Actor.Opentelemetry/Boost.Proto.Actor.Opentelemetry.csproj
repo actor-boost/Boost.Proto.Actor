@@ -9,7 +9,7 @@
 
         <PackageReference Include="LanguageExt.Core" Version="4.0.3" />
         <PackageReference Include="OpenTelemetry" Version="1.2.0-rc1" />
-        <PackageReference Include="OpenTelemetry.Api" Version="1.2.0-rc1" />
+        <PackageReference Include="OpenTelemetry.Api" Version="1.2.0-rc2" />
         <PackageReference Include="Proto.Actor" Version="0.27.1-alpha.0.4" />
         <PackageReference Include="Roslynator.Analyzers" Version="4.0.2">
           <PrivateAssets>all</PrivateAssets>

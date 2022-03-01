@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
 namespace Boost.Proto.Actor.DependencyInjection;
 
 public record PropsProxyFactory<T>(IEnumerable<FuncProps> FuncProps,
-                                   IServiceProvider ServiceProvider,
                                    Props InjectionProps)
     : IPropsFactory<T> where T : IActor
 {

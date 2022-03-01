@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Boost.Proto.Actor.DependencyInjection;
 
-public static class DependencyInjectionExtensions
+public static class Extensions
 {
     public static IServiceCollection AddProtoActor(this IServiceCollection services)
     {

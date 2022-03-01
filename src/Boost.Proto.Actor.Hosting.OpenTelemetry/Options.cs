@@ -1,6 +1,6 @@
 namespace Boost.Proto.Actor.Hosting.OpenTelemetry
 {
-    public class HostOption
+    public class Options
     {
     }
 }

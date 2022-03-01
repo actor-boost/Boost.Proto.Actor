@@ -3,6 +3,7 @@ using Boost.Proto.Actor.MessagePackSerializer;
 using k8s;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using Proto;
 using Proto.Cluster;
 using Proto.Cluster.Consul;
@@ -16,29 +17,46 @@ using Proto.Remote.GrpcNet;
 namespace Boost.Proto.Actor.Hosting.Cluster;
 
 
-public static class HostExtensions
+public static partial class Extensions
 {
     public static IHostBuilder UseProtoActorCluster(this IHostBuilder host,
-                                                    Action<IServiceProvider, HostOption> option)
+                                                    Action<Options, IServiceProvider>? option = null,
+                                                    string optionPath = "Boost:Actor:Cluster")
     {
+        option ??= (o, sp) => { };
+
+        Action<Options, IServiceProvider> optionPost = (o, sp) =>
+        {
+            option(o, sp);
+
+            o.AdvertisedHost = Environment.GetEnvironmentVariable("PROTO_ADVERTISED_HOST") switch
+            {
+                null => "127.0.0.1",
+                var m => m,
+            };
+
+            o.Provider ??= o.AdvertisedHost switch
+            {
+                "127.0.0.1" => ClusterProviderType.Local,
+                _ => ClusterProviderType.Kubernetes,
+            };
+        };
+
         host.ConfigureServices((context, services) =>
         {
             services.AddMessagePack();
             services.AddProtoActor();
             services.AddHostedService<HostedService>();
 
-            services.AddSingleton(sp =>
-            {
-                var ret = ActivatorUtilities.CreateInstance<HostOption>(sp);
-                option?.Invoke(sp, ret);
-                return ret;
-            });
+            services.AddOptions<Options>()
+                    .BindConfiguration(optionPath)
+                    .PostConfigure(optionPost);
 
-            services.AddSingleton(sp => new FuncActorSystem(sp.GetRequiredService<HostOption>().FuncActorSystem));
-            services.AddSingleton(sp => new FuncActorSystemConfig(sp.GetRequiredService<HostOption>().FuncActorSystemConfig));
-            services.AddSingleton(sp => new FuncRootContext(sp.GetRequiredService<HostOption>().FuncRootContext));
-            services.AddSingleton(sp => new FuncIRootContext(sp.GetRequiredService<HostOption>().FuncIRootContext));
-            services.AddSingleton(sp => new FuncActorSystemStart(sp.GetRequiredService<HostOption>().FuncActorSystemStart));
+            services.AddSingleton(sp => new FuncActorSystem(sp.GetRequiredService<IOptions<Options>>().Value.FuncActorSystem));
+            services.AddSingleton(sp => new FuncActorSystemConfig(sp.GetRequiredService<IOptions<Options>>().Value.FuncActorSystemConfig));
+            services.AddSingleton(sp => new FuncRootContext(sp.GetRequiredService<IOptions<Options>>().Value.FuncRootContext));
+            services.AddSingleton(sp => new FuncIRootContext(sp.GetRequiredService<IOptions<Options>>().Value.FuncIRootContext));
+            services.AddSingleton(sp => new FuncActorSystemStart(sp.GetRequiredService<IOptions<Options>>().Value.FuncActorSystemStart));
 
             services.AddSingleton(sp => KubernetesClientConfiguration.InClusterConfig());
             services.AddSingleton<IKubernetes>(sp => new Kubernetes(sp.GetRequiredService<KubernetesClientConfiguration>()));
@@ -46,7 +64,7 @@ public static class HostExtensions
 
             services.AddSingleton<IClusterProvider>(sp =>
             {
-                return sp.GetRequiredService<HostOption>().ClusterProvider switch
+                return sp.GetRequiredService<IOptions<Options>>().Value.Provider switch
                 {
                     ClusterProviderType.Kubernetes => ActivatorUtilities.CreateInstance<KubernetesProvider>(sp),
                     ClusterProviderType.Consul => ActivatorUtilities.CreateInstance<ConsulProvider>(sp, new ConsulProviderConfig()),
@@ -56,9 +74,9 @@ public static class HostExtensions
 
             services.AddSingleton(sp =>
             {
-                var option = sp.GetRequiredService<HostOption>();
+                var option = sp.GetRequiredService<IOptions<Options>>().Value;
 
-                return option.ClusterProvider switch
+                return option.Provider switch
                 {
                     ClusterProviderType.Local => GrpcNetRemoteConfig.BindToLocalhost(),
                     _ => GrpcNetRemoteConfig.BindToAllInterfaces(option.AdvertisedHost)
@@ -69,9 +87,9 @@ public static class HostExtensions
 
             services.AddSingleton(sp =>
             {
-                var option = sp.GetRequiredService<HostOption>();
+                var option = sp.GetRequiredService<IOptions<Options>>().Value;
 
-                return option.ClusterProvider switch
+                return option.Provider switch
                 {
                     ClusterProviderType.Local => GrpcCoreRemoteConfig.BindToLocalhost(),
                     _ => GrpcCoreRemoteConfig.BindToAllInterfaces(option.AdvertisedHost)
@@ -82,9 +100,9 @@ public static class HostExtensions
 
             services.AddSingleton(sp =>
             {
-                var option = sp.GetRequiredService<HostOption>();
+                var option = sp.GetRequiredService<IOptions<Options>>().Value;
                 var clusterKinds = sp.GetRequiredService<IEnumerable<ClusterKind>>();
-                return ClusterConfig.Setup(option.ClusterName,
+                return ClusterConfig.Setup(option.Name,
                                            sp.GetRequiredService<IClusterProvider>(),
                                            new PartitionIdentityLookup())
                                     .WithClusterKinds(option.ClusterKinds.ToArray())
@@ -93,7 +111,7 @@ public static class HostExtensions
 
             services.AddSingleton<FuncActorSystem>(sp =>
             {
-                var option = sp.GetRequiredService<HostOption>();
+                var option = sp.GetRequiredService<IOptions<Options>>().Value;
                 var clusterConfig = sp.GetRequiredService<ClusterConfig>();
 
                 return x =>
@@ -110,7 +128,7 @@ public static class HostExtensions
 
             services.AddSingleton<FuncActorSystemConfig>(sp =>
             {
-                var option = sp.GetRequiredService<HostOption>();
+                var option = sp.GetRequiredService<IOptions<Options>>().Value;
 
                 return x => x.WithDeveloperSupervisionLogging(true)
                              .WithDeadLetterRequestLogging(true)

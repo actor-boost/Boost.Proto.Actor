@@ -9,16 +9,16 @@ namespace Boost.Proto.Actor.Hosting.OpenTelemetry;
 public static class HostExtensions
 {
     public static IHostBuilder UseProtoActorOpenTelemetry(this IHostBuilder host,
-                                                          Action<IServiceProvider, HostOption> config = null)
+                                                          Action<Options, IServiceProvider>? option = null,
+                                                          string optionPath = "Boost:Actor:OpenTelemetry")
     {
         host.ConfigureServices((context, services) =>
         {
-            services.AddSingleton(sp =>
-            {
-                var ret = ActivatorUtilities.CreateInstance<HostOption>(sp);
-                config?.Invoke(sp, ret);
-                return ret;
-            });
+            option ??= (o, sp) => { };
+
+            services.AddOptions<Options>()
+                    .BindConfiguration(optionPath)
+                    .PostConfigure(option);
 
             services.AddSingleton<FuncIRootContext>(x => x.WithTracing());
             services.AddSingleton<FuncRootContext>(x => x.WithTracing());

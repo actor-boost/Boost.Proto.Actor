@@ -15,7 +15,7 @@ builder.UseProtoActor((sp, option) =>
 {
     option.FuncActorSystemStart = root =>
     {
-        root.SpawnNamed(sp.GetService<IPropsFactory<CounterActor>>()
+        root.SpawnNamed(sp.GetRequiredService<IPropsFactory<CounterActor>>()
                           .Create(new CounterState(10)), nameof(CounterActor));
 
         return root;

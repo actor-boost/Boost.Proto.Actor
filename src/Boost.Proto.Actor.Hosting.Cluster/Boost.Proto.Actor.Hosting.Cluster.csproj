@@ -11,7 +11,7 @@
     <PackageReference Include="Proto.Cluster.Kubernetes" Version="0.27.1-alpha.0.4" />
     <PackageReference Include="Proto.Cluster.TestProvider" Version="0.27.1-alpha.0.4" />
     <PackageReference Include="Proto.Remote.GrpcCore" Version="0.27.1-alpha.0.4" />
-    <PackageReference Include="Proto.Remote.GrpcNet" Version="0.27.1-alpha.0.4" />
+    <PackageReference Include="Proto.Remote.GrpcNet" Version="0.27.1-alpha.0.9" />
   </ItemGroup>
 
   <ItemGroup>

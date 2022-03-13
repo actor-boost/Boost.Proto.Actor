@@ -33,9 +33,7 @@ jobs:
         cd src	
         dotnet clean 	        
         dotnet restore	      
-        dotnet test --logger "junit;LogFileName=Report.xml"
-        sleep 2s
-        dotnet test --collect:"XPlat Code Coverage"
+        dotnet test --logger "junit;LogFileName=Report.xml" --collect:"XPlat Code Coverage"
     - name: ReportGenerator
       uses: danielpalme/ReportGenerator-GitHub-Action@5.1.0
       with:

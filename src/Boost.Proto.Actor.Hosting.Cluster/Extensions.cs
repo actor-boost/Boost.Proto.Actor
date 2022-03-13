@@ -11,7 +11,6 @@ using Proto.Cluster.Kubernetes;
 using Proto.Cluster.Partition;
 using Proto.Cluster.Testing;
 using Proto.Remote;
-using Proto.Remote.GrpcCore;
 using Proto.Remote.GrpcNet;
 
 namespace Boost.Proto.Actor.Hosting.Cluster;
@@ -91,8 +90,8 @@ public static partial class Extensions
 
                 return option.Provider switch
                 {
-                    ClusterProviderType.Local => GrpcCoreRemoteConfig.BindToLocalhost(),
-                    _ => GrpcCoreRemoteConfig.BindToAllInterfaces(option.AdvertisedHost)
+                    ClusterProviderType.Local => GrpcNetRemoteConfig.BindToLocalhost(),
+                    _ => GrpcNetRemoteConfig.BindToAllInterfaces(option.AdvertisedHost)
                                              .WithProtoMessages(option.ProtoMessages.ToArray())
                                              .WithSerializer(11, -50, sp.GetRequiredService<MessagePackSerializer.MessagePackSerializer>())
                 };
@@ -118,7 +117,6 @@ public static partial class Extensions
                 {
                     var y = option.RemoteProvider switch
                     {
-                        RemoteProviderType.GrpcCore => x.WithRemote(sp.GetRequiredService<GrpcCoreRemoteConfig>()),
                         _ => x.WithRemote(sp.GetRequiredService<GrpcNetRemoteConfig>())
                     };
 

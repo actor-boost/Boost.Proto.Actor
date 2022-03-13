@@ -12,9 +12,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="LanguageExt.Core" Version="4.0.3" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.2" />
+    <PackageReference Include="LanguageExt.Core" Version="4.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.3" />
   </ItemGroup>
 
   <ItemGroup>

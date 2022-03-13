@@ -40,8 +40,10 @@ jobs:
       uses: danielpalme/ReportGenerator-GitHub-Action@5.1.0
       with:
         reports: '**/coverage.cobertura.xml'
+        reporttypes: 'Html;Badges'
         targetdir: 'docs' # REQUIRED # The directory where the generated report should be saved.
         sourcedirs: 'src' 
+        
     - name: Push Report
       uses: EndBug/add-and-commit@v4
       with:

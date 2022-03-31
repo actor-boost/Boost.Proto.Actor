@@ -5,5 +5,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="AWSSDK.S3" Version="3.7.8.13" />
+    <PackageReference Include="Proto.Persistence" Version="0.28.0" />
+  </ItemGroup>
 
 </Project>

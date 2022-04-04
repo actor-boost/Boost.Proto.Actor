@@ -9,7 +9,7 @@
   <ItemGroup>
     <PackageReference Include="MessagePack" Version="2.3.85" />
     <PackageReference Include="Microsoft.Toolkit.HighPerformance" Version="7.1.2" />
-    <PackageReference Include="Proto.Remote" Version="0.28.0" />
+    <PackageReference Include="Proto.Remote" Version="0.29.0" />
   </ItemGroup>
   
 </Project>

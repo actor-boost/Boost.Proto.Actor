@@ -15,11 +15,17 @@ namespace Boost.Proto.Actor.Decorators
             Logger = serviceProvider.GetRequiredService<ILogger<LoggerActorContextDecorator>>();
         }
 
+        public override void Respond(object message)
+        {
+            Logger.LogInformation("Respond {@Message}", message);
+            base.Respond(message);
+        }
+
         public override async Task Receive(MessageEnvelope envelope)
         {
             var message = envelope.Message;
 
-            Logger.LogInformation("{@Message}", message);
+            Logger.LogInformation("Receive {@Message}", message);
 
             try
             {
@@ -36,7 +42,7 @@ namespace Boost.Proto.Actor.Decorators
         {
             var pid = base.SpawnNamed(props, name);
 
-            Logger.LogInformation("{message}", "SpawnActor");
+            Logger.LogInformation("Spawn {pid}", pid);
 
             return pid;
         }

@@ -17,11 +17,9 @@ namespace Boost.Proto.Actor.Decorators
 
         public override async Task Receive(MessageEnvelope envelope)
         {
-            var pid = Context.Self;
             var message = envelope.Message;
-            var header = envelope.Header;
 
-            Logger.LogInformation("{actor}@{message}{header}", pid, message.GetType().Name, header);
+            Logger.LogInformation("{@Message}", message);
 
             try
             {
@@ -38,7 +36,7 @@ namespace Boost.Proto.Actor.Decorators
         {
             var pid = base.SpawnNamed(props, name);
 
-            Logger.LogInformation("{actor}@{message}", pid, "SpawnActor");
+            Logger.LogInformation("{message}", "SpawnActor");
 
             return pid;
         }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
@@ -24,9 +24,11 @@ namespace Boost.Proto.Actor.Opentelemetry
             ActivityKind activityKind = ActivityKind.Internal
         )
         {
+            if (message is IIgnoredTraceMessage) return null;
+
             var messageType = message?.GetType().Name ?? "Unknown";
 
-            var name = $"Proto.{verb} {messageType}";
+            var name = $"{verb} {messageType}";
             var tags = new[] { new KeyValuePair<string, object?>(ProtoTags.MessageType, messageType) };
             var activity = ActivitySource.StartActivity(name, activityKind, parent, tags);
 

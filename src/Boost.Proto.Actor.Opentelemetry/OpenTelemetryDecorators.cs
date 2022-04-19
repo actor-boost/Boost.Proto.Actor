@@ -103,6 +103,14 @@ namespace Boost.Proto.Actor.Opentelemetry
 
         public override Task Receive(MessageEnvelope envelope)
             => OpenTelemetryMethodsDecorators.Receive(envelope, _receiveActivitySetup, () => base.Receive(envelope));
+
+        public override void Request(PID target, object message, PID? sender)
+            => OpenTelemetryMethodsDecorators.Request(target, message, sender, _sendActivitySetup, () => base.Request(target, message, sender));
+
+        public override Task<T> RequestAsync<T>(PID target, object message, CancellationToken cancellationToken)
+            => OpenTelemetryMethodsDecorators.RequestAsync(target, message, _sendActivitySetup,
+                () => base.RequestAsync<T>(target, message, cancellationToken)
+            );
     }
 
     static class OpenTelemetryMethodsDecorators

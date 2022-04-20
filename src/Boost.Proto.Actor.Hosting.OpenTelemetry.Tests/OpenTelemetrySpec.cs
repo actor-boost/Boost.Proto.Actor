@@ -31,8 +31,13 @@ public record OpenTelemetrySpec
 
                            o.FuncRootContext = root =>
                            {
+                               var grateActor = 
+                               root.SpawnNamed(sp.GetRequiredService<IPropsFactory<GreatActor>>()
+                                                 .Create(), "GreatActor");
+
                                root.SpawnNamed(sp.GetRequiredService<IPropsFactory<WorldActor>>()
-                                                 .Create(), "WorldActor");
+                                                 .Create(grateActor), "WorldActor");
+
                                return root;
                            };
 
@@ -55,7 +60,7 @@ public record OpenTelemetrySpec
         var root = host.Services.GetRequiredService<IRootContext>();
         using var cts = new CancellationTokenSource(10 * sec);
 
-        var ret = await cluster.RequestAsync<Unit>("1", "HelloActors", new Hi(), root, cts.Token);
+        var ret = await cluster.RequestAsync<Unit>(Guid.NewGuid().ToString(), "HelloActors", new Hi(), root, cts.Token);
         //if (ret is null) throw new TimeoutException();
 
         await Task.Delay(TimeSpan.FromSeconds(5));

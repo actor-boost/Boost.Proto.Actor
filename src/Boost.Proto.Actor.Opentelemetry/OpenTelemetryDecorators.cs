@@ -101,7 +101,7 @@ namespace Boost.Proto.Actor.Opentelemetry
                 };
 
                 Activity.Current.AddTag(ProtoTags.ResponseType, msg);
-                Activity.Current.DisplayName = $"{msg} {Activity.Current.DisplayName}";
+                Activity.Current.DisplayName = $"{Activity.Current.DisplayName}:{msg}";
             }
 
             base.Respond(message);

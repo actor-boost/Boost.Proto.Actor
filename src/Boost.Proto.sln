@@ -31,15 +31,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Boost.Proto.Actor.MessagePa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Boost.Proto.Actor.Hosting.Cluster.Tests", "Boost.Proto.Actor.Hosting.Cluster.Tests\Boost.Proto.Actor.Hosting.Cluster.Tests.csproj", "{841F4F92-2F15-40FF-A59B-9DF04FF87E5C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Boost.Proto.Actor.BlazorWasm.Tests", "Boost.Proto.Actor.BlazorWasm.Tests\Boost.Proto.Actor.BlazorWasm.Tests.csproj", "{03B3CEEE-7E8F-47BE-B15A-02CCB4D998C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Boost.Proto.Actor.BlazorWasm.Tests", "Boost.Proto.Actor.BlazorWasm.Tests\Boost.Proto.Actor.BlazorWasm.Tests.csproj", "{03B3CEEE-7E8F-47BE-B15A-02CCB4D998C3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Boost.Proto.Actor.Decorators.Tests", "Boost.Proto.Actor.Decorators.Tests\Boost.Proto.Actor.Decorators.Tests.csproj", "{471DB3D3-2828-4046-9D6B-652DE58D25E0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Boost.Proto.Actor.Decorators.Tests", "Boost.Proto.Actor.Decorators.Tests\Boost.Proto.Actor.Decorators.Tests.csproj", "{471DB3D3-2828-4046-9D6B-652DE58D25E0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Boost.Proto.Actor.Hosting.Local.Tests", "Boost.Proto.Actor.Hosting.Local.Tests\Boost.Proto.Actor.Hosting.Local.Tests.csproj", "{6E9B1310-34C3-42FD-ABC1-81133E852FAF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Boost.Proto.Actor.Hosting.Local.Tests", "Boost.Proto.Actor.Hosting.Local.Tests\Boost.Proto.Actor.Hosting.Local.Tests.csproj", "{6E9B1310-34C3-42FD-ABC1-81133E852FAF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Boost.Proto.Actor.Hosting.Logging.Tests", "Boost.Proto.Actor.Hosting.Logging.Tests\Boost.Proto.Actor.Hosting.Logging.Tests.csproj", "{D5A839F9-7A42-46A7-93B0-1EBDDC8886FA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Boost.Proto.Actor.Hosting.Logging.Tests", "Boost.Proto.Actor.Hosting.Logging.Tests\Boost.Proto.Actor.Hosting.Logging.Tests.csproj", "{D5A839F9-7A42-46A7-93B0-1EBDDC8886FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Boost.Proto.Actor.Hosting.OpenTelemetry.Tests", "Boost.Proto.Actor.Hosting.OpenTelemetry.Tests\Boost.Proto.Actor.Hosting.OpenTelemetry.Tests.csproj", "{7BF6958E-7A01-442C-96D2-E4D9688ECEAB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Boost.Proto.Actor.Hosting.OpenTelemetry.Tests", "Boost.Proto.Actor.Hosting.OpenTelemetry.Tests\Boost.Proto.Actor.Hosting.OpenTelemetry.Tests.csproj", "{7BF6958E-7A01-442C-96D2-E4D9688ECEAB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Boost.Proto.Actor.Opentelemetry.Abstractions", "Boost.Proto.Actor.Opentelemetry.Abstractions\Boost.Proto.Actor.Opentelemetry.Abstractions.csproj", "{CBB57353-FBB0-4C6C-8E89-088CAB5786CF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -119,6 +121,10 @@ Global
 		{7BF6958E-7A01-442C-96D2-E4D9688ECEAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7BF6958E-7A01-442C-96D2-E4D9688ECEAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7BF6958E-7A01-442C-96D2-E4D9688ECEAB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CBB57353-FBB0-4C6C-8E89-088CAB5786CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBB57353-FBB0-4C6C-8E89-088CAB5786CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBB57353-FBB0-4C6C-8E89-088CAB5786CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBB57353-FBB0-4C6C-8E89-088CAB5786CF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

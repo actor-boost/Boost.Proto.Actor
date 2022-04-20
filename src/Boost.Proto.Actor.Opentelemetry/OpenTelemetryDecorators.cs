@@ -43,6 +43,7 @@ namespace Boost.Proto.Actor.Opentelemetry
 
         private readonly ActivitySetup _receiveActivitySetup;
         private readonly ActivitySetup _sendActivitySetup;
+        private readonly string Self;
 
         public OpenTelemetryActorContextDecorator(
             IContext context,
@@ -51,19 +52,19 @@ namespace Boost.Proto.Actor.Opentelemetry
         ) : base(context)
         {
             var actorType = context?.Actor?.GetType().Name;
-            var self = context?.Self?.ToString();
+            Self = context?.Self?.ToString();
             _sendActivitySetup = (activity, message) =>
             {
                 activity?.SetTag(ProtoTags.ActorType, actorType);
-                activity?.SetTag(ProtoTags.ActorPID, self);
-                activity?.SetTag(ProtoTags.SenderPID, self);
+                activity?.SetTag(ProtoTags.ActorPID, Self);
+                activity?.SetTag(ProtoTags.SenderPID, Self);
                 sendActivitySetup(activity, message);
             };
             _receiveActivitySetup = (activity, message) =>
             {
                 activity?.SetTag(ProtoTags.ActorType, actorType);
-                activity?.SetTag(ProtoTags.ActorPID, self);
-                activity?.SetTag(ProtoTags.TargetPID, self);
+                activity?.SetTag(ProtoTags.ActorPID, Self);
+                activity?.SetTag(ProtoTags.TargetPID, Self);
                 receiveActivitySetup(activity, message);
             };
         }
@@ -90,12 +91,19 @@ namespace Boost.Proto.Actor.Opentelemetry
 
         public override void Respond(object message)
         {
-            Activity.Current?.AddTag(ProtoTags.ResponseType, message switch
+            if (Activity.Current is not null)
             {
-                IEither m => m.MatchUntyped(x => x.GetType().Name,
-                                            x => x.GetType().Name),
-                var m => m.GetType().Name
-            });
+                var msg = message switch
+                {
+                    IEither m => m.MatchUntyped(x => x.GetType().Name,
+                                                x => x.GetType().Name),
+                    var m => m.GetType().Name
+                };
+
+                Activity.Current.AddTag(ProtoTags.ResponseType, msg);
+                Activity.Current.DisplayName = $"{Activity.Current.DisplayName} => {msg}";
+            }
+
             base.Respond(message);
         }
         public override void Send(PID target, object message)
@@ -113,7 +121,7 @@ namespace Boost.Proto.Actor.Opentelemetry
             => OpenTelemetryMethodsDecorators.Forward(target, base.Message!, _sendActivitySetup, () => base.Forward(target));
 
         public override Task Receive(MessageEnvelope envelope)
-            => OpenTelemetryMethodsDecorators.Receive(envelope, _receiveActivitySetup, () => base.Receive(envelope));
+            => OpenTelemetryMethodsDecorators.Receive(Self, envelope, _receiveActivitySetup, () => base.Receive(envelope));
 
     }
 
@@ -123,7 +131,7 @@ namespace Boost.Proto.Actor.Opentelemetry
         public static void Send(PID target, object message, ActivitySetup sendActivitySetup, Action send)
         {
             using var activity =
-                OpenTelemetryHelpers.BuildStartedActivity(Activity.Current?.Context ?? default, nameof(Send), message, sendActivitySetup);
+                OpenTelemetryHelpers.BuildStartedActivity(Activity.Current?.Context ?? default, "[!] ", message, sendActivitySetup);
 
             try
             {
@@ -142,7 +150,7 @@ namespace Boost.Proto.Actor.Opentelemetry
         internal static void Request(PID target, object message, ActivitySetup sendActivitySetup, Action request)
         {
             using var activity =
-                OpenTelemetryHelpers.BuildStartedActivity(Activity.Current?.Context ?? default, nameof(Request), message, sendActivitySetup);
+                OpenTelemetryHelpers.BuildStartedActivity(Activity.Current?.Context ?? default, "[?] ", message, sendActivitySetup);
 
             try
             {
@@ -161,7 +169,7 @@ namespace Boost.Proto.Actor.Opentelemetry
         internal static void Request(PID target, object message, PID? sender, ActivitySetup sendActivitySetup, Action request)
         {
             using var activity =
-                OpenTelemetryHelpers.BuildStartedActivity(Activity.Current?.Context ?? default, nameof(Request), message, sendActivitySetup);
+                OpenTelemetryHelpers.BuildStartedActivity(Activity.Current?.Context ?? default, "[?] ", message, sendActivitySetup);
 
             try
             {
@@ -186,7 +194,7 @@ namespace Boost.Proto.Actor.Opentelemetry
         internal static async Task<T> RequestAsync<T>(PID target, object message, ActivitySetup sendActivitySetup, Func<Task<T>> requestAsync)
         {
             using var activity =
-                OpenTelemetryHelpers.BuildStartedActivity(Activity.Current?.Context ?? default, nameof(Request), message, sendActivitySetup);
+                OpenTelemetryHelpers.BuildStartedActivity(Activity.Current?.Context ?? default, "[?] ", message, sendActivitySetup);
 
             try
             {
@@ -205,7 +213,7 @@ namespace Boost.Proto.Actor.Opentelemetry
         internal static void Forward(PID target, object message, ActivitySetup sendActivitySetup, Action forward)
         {
             using var activity =
-                OpenTelemetryHelpers.BuildStartedActivity(Activity.Current?.Context ?? default, nameof(Forward), message, sendActivitySetup);
+                OpenTelemetryHelpers.BuildStartedActivity(Activity.Current?.Context ?? default, "[F] ", message, sendActivitySetup);
 
             try
             {
@@ -221,11 +229,11 @@ namespace Boost.Proto.Actor.Opentelemetry
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static async Task Receive(MessageEnvelope envelope, ActivitySetup receiveActivitySetup, Func<Task> receive)
+        internal static async Task Receive(string self, MessageEnvelope envelope, ActivitySetup receiveActivitySetup, Func<Task> receive)
         {
             var message = envelope.Message;
 
-            if (message is SystemMessage)
+            if (message is InfrastructureMessage)
             {
                 await receive().ConfigureAwait(false);
                 return;
@@ -234,7 +242,7 @@ namespace Boost.Proto.Actor.Opentelemetry
             var propagationContext = envelope.Header.ExtractPropagationContext();
 
             using var activity =
-                OpenTelemetryHelpers.BuildStartedActivity(propagationContext.ActivityContext, nameof(Receive), message, receiveActivitySetup);
+                OpenTelemetryHelpers.BuildStartedActivity(propagationContext.ActivityContext, $"{self}@", message, receiveActivitySetup);
 
             try
             {

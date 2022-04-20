@@ -28,7 +28,7 @@ namespace Boost.Proto.Actor.Opentelemetry
 
             var messageType = message?.GetType().Name ?? "Unknown";
 
-            var name = $"{verb} {messageType}";
+            var name = $"{verb}{messageType}";
             var tags = new[] { new KeyValuePair<string, object?>(ProtoTags.MessageType, messageType) };
             var activity = ActivitySource.StartActivity(name, activityKind, parent, tags);
 

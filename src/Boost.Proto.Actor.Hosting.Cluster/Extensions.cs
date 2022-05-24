@@ -91,12 +91,12 @@ public static partial class Extensions
             {
                 var option = sp.GetRequiredService<IOptions<Options>>().Value;
                 var clusterKinds = sp.GetRequiredService<IEnumerable<ClusterKind>>();
-                return ClusterConfig.Setup(option.Name,
-                                           sp.GetRequiredService<IClusterProvider>(),
-                                           new PartitionIdentityLookup())
-                                    .WithClusterKinds(option.ClusterKinds.ToArray())
-                                    .WithClusterKinds(clusterKinds?.ToArray() ?? Array.Empty<ClusterKind>())
-                                    .WithGossipRequestTimeout(option.GossipRequestTimeout);
+                return option.FuncClusterConfig.Invoke(
+                    ClusterConfig.Setup(option.Name,
+                                        sp.GetRequiredService<IClusterProvider>(),
+                                        new PartitionIdentityLookup())
+                                 .WithClusterKinds(option.ClusterKinds.ToArray())
+                                 .WithClusterKinds(clusterKinds?.ToArray() ?? Array.Empty<ClusterKind>()));
             });
 
             services.AddSingleton<FuncActorSystem>(sp =>

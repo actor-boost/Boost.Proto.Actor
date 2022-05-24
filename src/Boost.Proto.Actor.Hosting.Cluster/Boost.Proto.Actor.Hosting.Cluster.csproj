@@ -6,10 +6,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Proto.Cluster" Version="0.30.0" />
-    <PackageReference Include="Proto.Cluster.Consul" Version="0.30.0" />
-    <PackageReference Include="Proto.Cluster.Kubernetes" Version="0.30.0" />
-    <PackageReference Include="Proto.Cluster.TestProvider" Version="0.30.0" />
+    <PackageReference Include="Proto.Cluster" Version="0.30.1-alpha.0.11" />
+    <PackageReference Include="Proto.Cluster.Consul" Version="0.30.1-alpha.0.11" />
+    <PackageReference Include="Proto.Cluster.Kubernetes" Version="0.30.1-alpha.0.11" />
+    <PackageReference Include="Proto.Cluster.TestProvider" Version="0.30.1-alpha.0.11" />
   </ItemGroup>
 
   <ItemGroup>

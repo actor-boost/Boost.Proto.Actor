@@ -18,9 +18,9 @@ public static class Extensions
             Log.SetLoggerFactory(sp.GetRequiredService<ILoggerFactory>());
 
             var funcConfig = sp.GetServices<FuncActorSystemConfig>()
-                               .Reduce((x, y) => z => y(x(z)));
+                               .Aggregate((x, y) => z => y(x(z)));
             var funcSystem = sp.GetServices<FuncActorSystem>()
-                               .Reduce((x, y) => z => y(x(z)));
+                               .Aggregate((x, y) => z => y(x(z)));
 
             return funcSystem(new ActorSystem(funcConfig(ActorSystemConfig.Setup())));
         });
@@ -30,10 +30,10 @@ public static class Extensions
         services.AddSingleton(sp =>
         {
             var funcRootContext = sp.GetServices<FuncRootContext>()
-                                    .Reduce((x, y) => z => x(y(z)));
+                                    .Aggregate((x, y) => z => x(y(z)));
 
             var funcIRootContext = sp.GetServices<FuncIRootContext>()
-                                     .Reduce((x, y) => z => x(y(z)));
+                                     .Aggregate((x, y) => z => x(y(z)));
 
             return funcIRootContext(funcRootContext(sp.GetService<RootContext>()));
         });

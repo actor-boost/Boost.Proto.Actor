@@ -29,11 +29,8 @@ public class MessagePackSerializerSpec
         // Act
 
         var dto = serializer.Serialize(msg);
-
-        var ret = serializer.Deserialize(dto, string.Empty);
+        var ret = serializer.Deserialize(dto, null);
 
         ret.Should().Be(msg);
-
-
     }
 }

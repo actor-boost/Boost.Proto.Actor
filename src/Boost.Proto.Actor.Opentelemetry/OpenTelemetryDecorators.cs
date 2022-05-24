@@ -1,12 +1,8 @@
 using System;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using System.Threading;
 using System.Threading.Tasks;
-using LanguageExt;
 using OpenTelemetry.Trace;
-using System.Linq;
-using Proto.Mailbox;
 
 namespace Boost.Proto.Actor.Opentelemetry
 {
@@ -93,12 +89,7 @@ namespace Boost.Proto.Actor.Opentelemetry
         {
             if (Activity.Current is not null)
             {
-                var msg = message switch
-                {
-                    IEither m => m.MatchUntyped(x => x.GetType().Name,
-                                                x => x.GetType().Name),
-                    var m => m.GetType().Name
-                };
+                var msg = message.GetType().Name;
 
                 Activity.Current.AddTag(ProtoTags.ResponseType, msg);
                 Activity.Current.DisplayName = $"{Activity.Current.DisplayName}:{msg}";
@@ -106,6 +97,7 @@ namespace Boost.Proto.Actor.Opentelemetry
 
             base.Respond(message);
         }
+
         //public override void Send(PID target, object message)
         //    => OpenTelemetryMethodsDecorators.Send(target, message, _sendActivitySetup, () => base.Send(target, message));
 
@@ -226,6 +218,7 @@ namespace Boost.Proto.Actor.Opentelemetry
                 throw;
             }
         }
+
         public static string Truncate(string value, int maxChars)
         {
             const string ellipses = "...";

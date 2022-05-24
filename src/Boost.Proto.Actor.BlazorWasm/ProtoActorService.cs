@@ -11,7 +11,7 @@ public record ProtoActorService(IRootContext RootContext,
 {
     public void Run()
     {
-        ActorSystemStarts.Reduce((x, y) => z => y(x(z)))(RootContext);
+        ActorSystemStarts.Aggregate((x, y) => z => y(x(z)))(RootContext);
     }
 }
 

@@ -3,6 +3,7 @@ using Boost.Proto.Actor.MessagePackSerializer;
 using k8s;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Proto;
 using Proto.Cluster;
@@ -81,19 +82,8 @@ public static partial class Extensions
                     _ => GrpcNetRemoteConfig.BindToAllInterfaces(option.AdvertisedHost)
                                             .WithProtoMessages(option.ProtoMessages.ToArray())
                                             .WithSerializer(11, -50, sp.GetRequiredService<MessagePackSerializer.MessagePackSerializer>())
-                };
-            });
-
-            services.AddSingleton(sp =>
-            {
-                var option = sp.GetRequiredService<IOptions<Options>>().Value;
-
-                return option.Provider switch
-                {
-                    ClusterProviderType.Local => GrpcNetRemoteConfig.BindToLocalhost(),
-                    _ => GrpcNetRemoteConfig.BindToAllInterfaces(option.AdvertisedHost)
-                                             .WithProtoMessages(option.ProtoMessages.ToArray())
-                                             .WithSerializer(11, -50, sp.GetRequiredService<MessagePackSerializer.MessagePackSerializer>())
+                                            .WithLogLevelForDeserializationErrors(LogLevel.Critical)
+                                            .WithRemoteDiagnostics(true)
                 };
             });
 
@@ -105,7 +95,8 @@ public static partial class Extensions
                                            sp.GetRequiredService<IClusterProvider>(),
                                            new PartitionIdentityLookup())
                                     .WithClusterKinds(option.ClusterKinds.ToArray())
-                                    .WithClusterKinds(clusterKinds?.ToArray() ?? Array.Empty<ClusterKind>());
+                                    .WithClusterKinds(clusterKinds?.ToArray() ?? Array.Empty<ClusterKind>())
+                                    .WithGossipRequestTimeout(option.GossipRequestTimeout);
             });
 
             services.AddSingleton<FuncActorSystem>(sp =>

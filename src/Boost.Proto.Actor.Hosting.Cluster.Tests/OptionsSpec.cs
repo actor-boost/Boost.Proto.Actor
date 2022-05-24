@@ -14,7 +14,6 @@ using Proto.Cluster;
 using Xunit;
 using ClusterOptions = Boost.Proto.Actor.Hosting.Cluster.Options;
 using ProtoCluster = global::Proto.Cluster.Cluster;
-using static LanguageExt.Prelude;
 
 namespace Boost.Proto.Actor.Hosting.Cluster.Tests;
 
@@ -73,7 +72,7 @@ public class OptionsSpec
 
         var cluster = host.Services.GetRequiredService<ProtoCluster>();
 
-        var cts = new CancellationTokenSource(3 * sec);
+        var cts = new CancellationTokenSource(TimeSpan.FromSeconds(3));
 
         var ret = await cluster.RequestAsync<string>("1",
                                                      "TestActor",

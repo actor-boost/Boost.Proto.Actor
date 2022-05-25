@@ -6,7 +6,7 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Proto.Cluster" Version="0.30.0" />
+    <PackageReference Include="Proto.Cluster" Version="0.31.0" />
     <PackageReference Include="Proto.Cluster.Consul" Version="0.30.0" />
     <PackageReference Include="Proto.Cluster.Kubernetes" Version="0.30.0" />
     <PackageReference Include="Proto.Cluster.TestProvider" Version="0.30.0" />

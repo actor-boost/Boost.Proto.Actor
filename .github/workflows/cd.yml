@@ -32,8 +32,8 @@ jobs:
     - name: Modification Version
       run: |
         cd src
-        sed -i "s/<Version>9999.0.0.000/<Version>${{ steps.get_version.outputs.version }}/g" ./common.props
-        cat ./common.props
+        sed -i "s/<Version>9999.0.0.000/<Version>${{ steps.get_version.outputs.version }}/g" ./Directory.Build.props
+        cat ./Directory.Build.props
     - name: Generate NuGet packages
       run: | 
         cd src

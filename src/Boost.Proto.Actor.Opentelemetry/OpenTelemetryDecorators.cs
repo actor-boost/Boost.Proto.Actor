@@ -65,16 +65,19 @@ namespace Boost.Proto.Actor.Opentelemetry
             };
         }
 
-        public override PID SpawnNamed(Props props, string name)
+        public override PID SpawnNamed(Props props, string name, Action<IContext>? callback = null)
         {
             if (Activity.Current is not null)
             {
                 using var activity = ActivitySource.StartActivity("");
-                var pid = base.SpawnNamed(props, name);
+                var pid = base.SpawnNamed(props, name, callback);
 
                 if (activity is not null)
                 {
-                    activity.DisplayName = $"Spawned {pid}";
+                    var names = pid.ToString().Split('/');
+                    var n = names.Length > 2 ? $"{names[0]}/.../{OpenTelemetryMethodsDecorators.Truncate(names[^1], 10)}" : pid.ToString();
+
+                    activity.DisplayName = $"Spawned {n}";
                 }
 
                 return pid;
@@ -239,7 +242,6 @@ namespace Boost.Proto.Actor.Opentelemetry
             var propagationContext = envelope.Header.ExtractPropagationContext();
 
             var names = self.Split('/');
-
             var name = names.Length > 2 ? $"{names[0]}/.../{Truncate(names[^1], 10)}" : self;
 
             using var activity =

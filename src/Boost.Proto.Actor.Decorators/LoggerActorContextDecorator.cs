@@ -38,9 +38,9 @@ namespace Boost.Proto.Actor.Decorators
             }
         }
 
-        public override PID SpawnNamed(Props props, string name)
+        public override PID SpawnNamed(Props props, string name, Action<IContext>? callback = null) 
         {
-            var pid = base.SpawnNamed(props, name);
+            var pid = base.SpawnNamed(props, name, callback);
 
             Logger.LogInformation("Spawn {pid}", pid);
 

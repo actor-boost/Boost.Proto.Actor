@@ -8,7 +8,7 @@
   <ItemGroup>
     <PackageReference Include="Proto.Cluster" Version="0.33.0" />
     <PackageReference Include="Proto.Cluster.Consul" Version="0.33.0" />
-    <PackageReference Include="Proto.Cluster.Kubernetes" Version="0.31.0" />
+    <PackageReference Include="Proto.Cluster.Kubernetes" Version="0.33.0" />
     <PackageReference Include="Proto.Cluster.TestProvider" Version="0.33.0" />
   </ItemGroup>
 

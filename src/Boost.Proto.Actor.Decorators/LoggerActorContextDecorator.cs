@@ -1,3 +1,4 @@
+using Boost.Proto.Abstractions;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Proto;
@@ -17,7 +18,11 @@ namespace Boost.Proto.Actor.Decorators
 
         public override void Respond(object message)
         {
-            Logger.LogInformation("Respond {@Message}", message);
+            if (message is not IIgnoredLogMessage)
+            {
+                Logger.LogInformation("Respond {@Message}", message);
+            }
+
             base.Respond(message);
         }
 
@@ -25,7 +30,10 @@ namespace Boost.Proto.Actor.Decorators
         {
             var message = envelope.Message;
 
-            Logger.LogInformation("Receive {@Message}", message);
+            if (message is not IIgnoredLogMessage)
+            {
+                Logger.LogInformation("Receive {@Message}", message);
+            }
 
             try
             {

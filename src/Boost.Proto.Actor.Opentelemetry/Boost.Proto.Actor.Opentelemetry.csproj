@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFramework>net6</TargetFramework>
         <Nullable>enable</Nullable>
@@ -14,6 +14,6 @@
         </PackageReference>
     </ItemGroup>
     <ItemGroup>
-      <ProjectReference Include="..\Boost.Proto.Actor.Opentelemetry.Abstractions\Boost.Proto.Actor.Opentelemetry.Abstractions.csproj" />
+      <ProjectReference Include="..\Boost.Proto.Abstractions\Boost.Proto.Abstractions.csproj" />
     </ItemGroup>
 </Project>

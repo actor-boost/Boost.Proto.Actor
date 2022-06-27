@@ -6,12 +6,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="LanguageExt.Core" Version="4.2.7" />    
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="6.0.0" />    
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="6.0.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Boost.Proto.Abstractions\Boost.Proto.Abstractions.csproj" />
     <ProjectReference Include="..\Boost.Proto.Actor.DependencyInjection\Boost.Proto.Actor.DependencyInjection.csproj" />
     <ProjectReference Include="..\Boost.Proto.Actor.Opentelemetry\Boost.Proto.Actor.Opentelemetry.csproj" />
   </ItemGroup>

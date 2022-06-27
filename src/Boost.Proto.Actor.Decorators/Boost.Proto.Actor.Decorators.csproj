@@ -9,4 +9,8 @@
     <PackageReference Include="Proto.Actor" Version="0.33.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Boost.Proto.Abstractions\Boost.Proto.Abstractions.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Boost.Proto.Abstractions\Boost.Proto.Abstractions.csproj" />
+    <ProjectReference Include="..\Boost.Proto.Abstractions\Boost.Proto.Actor.Abstractions.csproj" />
     <ProjectReference Include="..\Boost.Proto.Actor.DependencyInjection\Boost.Proto.Actor.DependencyInjection.csproj" />
     <ProjectReference Include="..\Boost.Proto.Actor.Opentelemetry\Boost.Proto.Actor.Opentelemetry.csproj" />
   </ItemGroup>

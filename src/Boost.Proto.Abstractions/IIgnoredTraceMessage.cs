@@ -1,4 +1,4 @@
-namespace Boost.Proto.Abstractions;
+namespace Boost.Proto.Actor.Abstractions;
 
 public interface IIgnoredTraceMessage
 {

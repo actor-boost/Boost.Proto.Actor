@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Boost.Proto.Abstractions\Boost.Proto.Abstractions.csproj" />
+    <ProjectReference Include="..\Boost.Proto.Abstractions\Boost.Proto.Actor.Abstractions.csproj" />
   </ItemGroup>
 
 </Project>

@@ -41,7 +41,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Boost.Proto.Actor.Hosting.L
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Boost.Proto.Actor.Hosting.OpenTelemetry.Tests", "Boost.Proto.Actor.Hosting.OpenTelemetry.Tests\Boost.Proto.Actor.Hosting.OpenTelemetry.Tests.csproj", "{7BF6958E-7A01-442C-96D2-E4D9688ECEAB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Boost.Proto.Abstractions", "Boost.Proto.Abstractions\Boost.Proto.Abstractions.csproj", "{F12E3729-7339-45D6-B5C4-B5BD9B31550D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Boost.Proto.Actor.Abstractions", "Boost.Proto.Abstractions\Boost.Proto.Actor.Abstractions.csproj", "{F12E3729-7339-45D6-B5C4-B5BD9B31550D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,4 +1,4 @@
-using Boost.Proto.Abstractions;
+using Boost.Proto.Actor.Abstractions;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Proto;

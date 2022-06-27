@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using Boost.Proto.Abstractions;
+using Boost.Proto.Actor.Abstractions;
 using OpenTelemetry;
 using OpenTelemetry.Context.Propagation;
 

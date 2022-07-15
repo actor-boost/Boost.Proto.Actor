@@ -20,7 +20,7 @@ namespace Boost.Proto.Actor.Decorators
         {
             if (message is not IIgnoredLogMessage)
             {
-                Logger.LogInformation("Respond {@Message}", message);
+                Logger.LogInformation("Respond {@Message} {pid}", message, Context.Self);
             }
 
             base.Respond(message);
@@ -32,7 +32,7 @@ namespace Boost.Proto.Actor.Decorators
 
             if (message is not IIgnoredLogMessage)
             {
-                Logger.LogInformation("Receive {@Message}", message);
+                Logger.LogInformation("Receive {@Message} {pid}", message, Context.Self);
             }
 
             try

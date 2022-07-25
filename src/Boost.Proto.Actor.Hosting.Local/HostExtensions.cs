@@ -22,7 +22,6 @@ public static class HostExtensions
                     .BindConfiguration(optionPath)
                     .PostConfigure(optionPost);
 
-            services.AddSingleton(sp => new FuncRootContext(sp.GetRequiredService<IOptions<HostOption>>().Value.FuncRootContext));
             services.AddSingleton(sp => new FuncIRootContext(sp.GetRequiredService<IOptions<HostOption>>().Value.FuncIRootContext));
             services.AddSingleton(sp => new FuncActorSystem(sp.GetRequiredService<IOptions<HostOption>>().Value.FuncActorSystem));
             services.AddSingleton(sp => new FuncActorSystemConfig(sp.GetRequiredService<IOptions<HostOption>>().Value.FuncActorSystemConfig));

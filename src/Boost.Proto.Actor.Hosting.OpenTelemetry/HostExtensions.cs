@@ -21,7 +21,6 @@ public static class HostExtensions
                     .PostConfigure(option);
 
             services.AddSingleton<FuncIRootContext>(x => x.WithTracing());
-            services.AddSingleton<FuncRootContext>(x => x.WithTracing());
             services.AddSingleton<FuncProps>(x => x.WithTracing());
         });
 

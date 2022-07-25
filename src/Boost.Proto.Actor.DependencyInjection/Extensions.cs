@@ -10,7 +10,6 @@ public static class Extensions
         services.AddSingleton<FuncProps>(sp => _ => _);
         services.AddSingleton<FuncActorSystem>(sp => _ => _);
         services.AddSingleton<FuncActorSystemConfig>(sp => _ => _);
-        services.AddSingleton<FuncRootContext>(sp => _ => _);
         services.AddSingleton<FuncIRootContext>(sp => _ => _);
 
         services.AddSingleton(sp =>
@@ -26,16 +25,12 @@ public static class Extensions
         });
 
         services.AddSingleton(typeof(IPropsFactory<>), typeof(PropsFactory<>));
-        services.AddSingleton(sp => sp.GetService<ActorSystem>().Root);
         services.AddSingleton(sp =>
         {
-            var funcRootContext = sp.GetServices<FuncRootContext>()
-                                    .Aggregate((x, y) => z => x(y(z)));
-
             var funcIRootContext = sp.GetServices<FuncIRootContext>()
                                      .Aggregate((x, y) => z => x(y(z)));
 
-            return funcIRootContext(funcRootContext(sp.GetService<RootContext>()));
+            return funcIRootContext(sp.GetRequiredService<ActorSystem>().Root);
         });
         return services;
     }

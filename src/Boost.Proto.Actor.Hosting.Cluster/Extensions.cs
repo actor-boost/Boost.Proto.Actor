@@ -54,7 +54,6 @@ public static partial class Extensions
 
             services.AddSingleton(sp => new FuncActorSystem(sp.GetRequiredService<IOptions<Options>>().Value.FuncActorSystem));
             services.AddSingleton(sp => new FuncActorSystemConfig(sp.GetRequiredService<IOptions<Options>>().Value.FuncActorSystemConfig));
-            services.AddSingleton(sp => new FuncRootContext(sp.GetRequiredService<IOptions<Options>>().Value.FuncRootContext));
             services.AddSingleton(sp => new FuncIRootContext(sp.GetRequiredService<IOptions<Options>>().Value.FuncIRootContext));
             services.AddSingleton(sp => new FuncActorSystemStart(sp.GetRequiredService<IOptions<Options>>().Value.FuncActorSystemStart));
 

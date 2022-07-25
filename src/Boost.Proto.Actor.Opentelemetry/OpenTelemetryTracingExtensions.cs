@@ -46,20 +46,13 @@ namespace Boost.Proto.Actor.Opentelemetry
                 await next(context, target, envelope);
             };
 
-        /// <summary>
-        ///     Setup OpenTelemetry send decorator around RootContext.
-        /// </summary>
-        /// <param name="context">Root context</param>
-        /// <param name="sendActivitySetup">provide a way inject send activity customization according to the message.</param>
-        /// <returns>IRootContext</returns>
-        public static RootContext WithTracing(this RootContext context)
-        {
-            return context.WithSenderMiddleware(OpenTelemetrySenderMiddleware);
-        }
+        public static RootContext WithTracing(this RootContext context) => context;
 
         public static IRootContext WithTracing(this IRootContext context, ActivitySetup? sendActivitySetup = null)
         {
             sendActivitySetup ??= OpenTelemetryHelpers.DefaultSetupActivity!;
+
+            context.WithSenderMiddleware(OpenTelemetrySenderMiddleware);
 
             return new OpenTelemetryRootContextDecorator(context, sendActivitySetup);
         }

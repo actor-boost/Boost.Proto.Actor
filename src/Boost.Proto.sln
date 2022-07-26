@@ -23,11 +23,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Boost.Proto.Actor.Opentelem
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{09BCA4B6-3429-4C45-8C81-0D772015D0BC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Boost.Proto.Actor.MessagePackSerializer", "Boost.Proto.Actor.MessagePackSerializer\Boost.Proto.Actor.MessagePackSerializer.csproj", "{CD7D8F76-EF75-4956-A09D-2F40489F09F3}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Boost.Proto.Actor.Opentelemetry.Tests", "Boost.Proto.Actor.Opentelemetry.Tests\Boost.Proto.Actor.Opentelemetry.Tests.csproj", "{3ACE440B-85FC-4F35-B9B1-134E2C4214D5}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Boost.Proto.Actor.MessagePackSerializer.Tests", "Boost.Proto.Actor.MessagePackSerializer.Tests\Boost.Proto.Actor.MessagePackSerializer.Tests.csproj", "{FCA33247-F38A-4F5A-90CC-E9B6DAEB8624}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Boost.Proto.Actor.Hosting.Cluster.Tests", "Boost.Proto.Actor.Hosting.Cluster.Tests\Boost.Proto.Actor.Hosting.Cluster.Tests.csproj", "{841F4F92-2F15-40FF-A59B-9DF04FF87E5C}"
 EndProject
@@ -85,18 +81,10 @@ Global
 		{632DB7A4-39D6-4ED1-93CA-5D902D12D5D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{632DB7A4-39D6-4ED1-93CA-5D902D12D5D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{632DB7A4-39D6-4ED1-93CA-5D902D12D5D1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CD7D8F76-EF75-4956-A09D-2F40489F09F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CD7D8F76-EF75-4956-A09D-2F40489F09F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CD7D8F76-EF75-4956-A09D-2F40489F09F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CD7D8F76-EF75-4956-A09D-2F40489F09F3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3ACE440B-85FC-4F35-B9B1-134E2C4214D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3ACE440B-85FC-4F35-B9B1-134E2C4214D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3ACE440B-85FC-4F35-B9B1-134E2C4214D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3ACE440B-85FC-4F35-B9B1-134E2C4214D5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FCA33247-F38A-4F5A-90CC-E9B6DAEB8624}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FCA33247-F38A-4F5A-90CC-E9B6DAEB8624}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FCA33247-F38A-4F5A-90CC-E9B6DAEB8624}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FCA33247-F38A-4F5A-90CC-E9B6DAEB8624}.Release|Any CPU.Build.0 = Release|Any CPU
 		{841F4F92-2F15-40FF-A59B-9DF04FF87E5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{841F4F92-2F15-40FF-A59B-9DF04FF87E5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{841F4F92-2F15-40FF-A59B-9DF04FF87E5C}.Release|Any CPU.ActiveCfg = Release|Any CPU

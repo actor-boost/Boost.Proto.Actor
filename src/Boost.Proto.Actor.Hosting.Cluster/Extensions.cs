@@ -1,5 +1,4 @@
 using Boost.Proto.Actor.DependencyInjection;
-using Boost.Proto.Actor.MessagePackSerializer;
 using k8s;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -44,7 +43,6 @@ public static partial class Extensions
 
         host.ConfigureServices((context, services) =>
         {
-            services.AddMessagePack();
             services.AddProtoActor();
             services.AddHostedService<HostedService>();
 
@@ -80,7 +78,6 @@ public static partial class Extensions
                     ClusterProviderType.Local => GrpcNetRemoteConfig.BindToLocalhost(),
                     _ => GrpcNetRemoteConfig.BindToAllInterfaces(option.AdvertisedHost)
                                             .WithProtoMessages(option.ProtoMessages.ToArray())
-                                            .WithSerializer(11, -50, sp.GetRequiredService<MessagePackSerializer.MessagePackSerializer>())
                                             .WithLogLevelForDeserializationErrors(LogLevel.Critical)
                                             .WithRemoteDiagnostics(true)
                 };

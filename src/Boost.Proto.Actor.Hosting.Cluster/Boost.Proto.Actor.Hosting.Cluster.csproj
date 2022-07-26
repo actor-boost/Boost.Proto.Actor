@@ -13,7 +13,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Boost.Proto.Actor.DependencyInjection\Boost.Proto.Actor.DependencyInjection.csproj" />
-    <ProjectReference Include="..\Boost.Proto.Actor.MessagePackSerializer\Boost.Proto.Actor.MessagePackSerializer.csproj" />
   </ItemGroup>
 
 

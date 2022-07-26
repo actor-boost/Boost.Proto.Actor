@@ -1,4 +1,5 @@
 using Boost.Proto.Actor.DependencyInjection;
+using Google.Protobuf.WellKnownTypes;
 using k8s;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -22,7 +23,7 @@ public static partial class Extensions
                                                     Action<Options, IServiceProvider>? option = null,
                                                     string optionPath = "Boost:Actor:Cluster")
     {
-        option ??= (o, sp) => { };
+        option ??= (_, _) => { };
 
         Action<Options, IServiceProvider> optionPost = (o, sp) =>
         {
@@ -65,7 +66,7 @@ public static partial class Extensions
                 {
                     ClusterProviderType.Kubernetes => ActivatorUtilities.CreateInstance<KubernetesProvider>(sp),
                     ClusterProviderType.Consul => ActivatorUtilities.CreateInstance<ConsulProvider>(sp, new ConsulProviderConfig()),
-                    _ => new TestProvider(new TestProviderOptions(), new InMemAgent())
+                    _ => new TestProvider(new(), new())
                 };
             });
 
@@ -77,6 +78,7 @@ public static partial class Extensions
                 {
                     ClusterProviderType.Local => GrpcNetRemoteConfig.BindToLocalhost(),
                     _ => GrpcNetRemoteConfig.BindToAllInterfaces(option.AdvertisedHost)
+                                            .WithProtoMessages(EmptyReflection.Descriptor)
                                             .WithProtoMessages(option.ProtoMessages.ToArray())
                                             .WithLogLevelForDeserializationErrors(LogLevel.Critical)
                                             .WithRemoteDiagnostics(true)

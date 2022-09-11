@@ -13,8 +13,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Boost.Proto.Actor.Hosting.C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Boost.Proto.Actor.Hosting.Local", "Boost.Proto.Actor.Hosting.Local\Boost.Proto.Actor.Hosting.Local.csproj", "{E6465B19-60FD-4507-A14C-6F1B22920A28}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Boost.Proto.Actor.BlazorWasm.SampleApp", "Boost.Proto.Actor.BlazorWasm.SampleApp\Boost.Proto.Actor.BlazorWasm.SampleApp.csproj", "{0F4B31DA-B23F-4FF4-A059-0AADC4249BA5}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Boost.Proto.Actor.Hosting.OpenTelemetry", "Boost.Proto.Actor.Hosting.OpenTelemetry\Boost.Proto.Actor.Hosting.OpenTelemetry.csproj", "{540C334D-8201-4481-B660-4CB1BF78FD26}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Boost.Proto.Actor.Hosting.Logging", "Boost.Proto.Actor.Hosting.Logging\Boost.Proto.Actor.Hosting.Logging.csproj", "{05D17D31-30C8-429B-9C4A-942AB350C08D}"
@@ -38,6 +36,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Boost.Proto.Actor.Hosting.OpenTelemetry.Tests", "Boost.Proto.Actor.Hosting.OpenTelemetry.Tests\Boost.Proto.Actor.Hosting.OpenTelemetry.Tests.csproj", "{7BF6958E-7A01-442C-96D2-E4D9688ECEAB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Boost.Proto.Actor.Abstractions", "Boost.Proto.Abstractions\Boost.Proto.Actor.Abstractions.csproj", "{F12E3729-7339-45D6-B5C4-B5BD9B31550D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClusterSingle", "..\samples\ClusterSingle\ClusterSingle.csproj", "{ED1072D2-BDF7-45A1-AFFB-6C60B1FCCDD4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -65,10 +65,6 @@ Global
 		{E6465B19-60FD-4507-A14C-6F1B22920A28}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E6465B19-60FD-4507-A14C-6F1B22920A28}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E6465B19-60FD-4507-A14C-6F1B22920A28}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0F4B31DA-B23F-4FF4-A059-0AADC4249BA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0F4B31DA-B23F-4FF4-A059-0AADC4249BA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0F4B31DA-B23F-4FF4-A059-0AADC4249BA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0F4B31DA-B23F-4FF4-A059-0AADC4249BA5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{540C334D-8201-4481-B660-4CB1BF78FD26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{540C334D-8201-4481-B660-4CB1BF78FD26}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{540C334D-8201-4481-B660-4CB1BF78FD26}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -113,12 +109,16 @@ Global
 		{F12E3729-7339-45D6-B5C4-B5BD9B31550D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F12E3729-7339-45D6-B5C4-B5BD9B31550D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F12E3729-7339-45D6-B5C4-B5BD9B31550D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED1072D2-BDF7-45A1-AFFB-6C60B1FCCDD4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED1072D2-BDF7-45A1-AFFB-6C60B1FCCDD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED1072D2-BDF7-45A1-AFFB-6C60B1FCCDD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED1072D2-BDF7-45A1-AFFB-6C60B1FCCDD4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{0F4B31DA-B23F-4FF4-A059-0AADC4249BA5} = {09BCA4B6-3429-4C45-8C81-0D772015D0BC}
+		{ED1072D2-BDF7-45A1-AFFB-6C60B1FCCDD4} = {09BCA4B6-3429-4C45-8C81-0D772015D0BC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B68882E6-067A-4700-A8E9-1E9E80DF0BD7}

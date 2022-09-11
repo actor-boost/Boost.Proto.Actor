@@ -25,7 +25,7 @@ public static class HostExtensions
             services.AddSingleton(sp => new FuncIRootContext(sp.GetRequiredService<IOptions<HostOption>>().Value.FuncIRootContext));
             services.AddSingleton(sp => new FuncActorSystem(sp.GetRequiredService<IOptions<HostOption>>().Value.FuncActorSystem));
             services.AddSingleton(sp => new FuncActorSystemConfig(sp.GetRequiredService<IOptions<HostOption>>().Value.FuncActorSystemConfig));
-            services.AddSingleton(sp => new FuncActorSystemStart(sp.GetRequiredService<IOptions<HostOption>>().Value.FuncActorSystemStart));
+            services.AddSingleton(sp => new FuncActorSystemStartAsync(sp.GetRequiredService<IOptions<HostOption>>().Value.FuncActorSystemStartAsync));
             
             services.AddHostedService<HostedService>();
             services.AddProtoActor();

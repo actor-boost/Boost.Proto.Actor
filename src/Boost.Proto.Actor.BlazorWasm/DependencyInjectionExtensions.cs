@@ -26,7 +26,7 @@ public static class DependencyInjectionExtensions
 
         services.AddSingleton(sp => new FuncActorSystem(sp.GetService<ProtoActorWasmOption>()!.FuncActorSystem));
         services.AddSingleton(sp => new FuncActorSystemConfig(sp.GetService<ProtoActorWasmOption>()!.FuncActorSystemConfig));
-        services.AddSingleton(sp => new FuncActorSystemStart(sp.GetService<ProtoActorWasmOption>()!.FuncActorSystemStart));
+        services.AddSingleton(sp => new FuncActorSystemStartAsync(sp.GetService<ProtoActorWasmOption>()!.FuncActorSystemStartAsync));
 
         services.AddProtoActor();
         return services;

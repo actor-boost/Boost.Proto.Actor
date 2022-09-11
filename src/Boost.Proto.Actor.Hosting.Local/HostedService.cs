@@ -5,14 +5,19 @@ using Proto;
 
 namespace Boost.Proto.Actor.Hosting.Local
 {
-    internal record HostedService(IEnumerable<FuncActorSystemStart> ActorSystemStarts,
+    internal record HostedService(IEnumerable<FuncActorSystemStartAsync> FuncActorSystemStartAsyncs,
                                   IOptions<HostOption> HostOption,
                                   IRootContext Root) : IHostedService
     {
-        public Task StartAsync(CancellationToken cancellationToken)
+        public async Task StartAsync(CancellationToken cancellationToken)
         {
-            ActorSystemStarts.Aggregate((x, y) => z => y(x(z)))(Root);
-            return Task.CompletedTask;
+            var f = FuncActorSystemStartAsyncs.Aggregate((x, y) => async (r, n) =>
+            {
+                await y(r, n);
+                await x(r, n);
+            });
+
+            await f(Root, r => Task.CompletedTask);
         }
 
         public async Task StopAsync(CancellationToken cancellationToken)

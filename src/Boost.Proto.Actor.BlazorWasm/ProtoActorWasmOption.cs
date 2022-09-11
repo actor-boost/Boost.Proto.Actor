@@ -17,7 +17,7 @@ public class ProtoActorWasmOption
 
     public Func<IRootContext, IRootContext> FuncIRootContext { get; set; } = _ => _;
 
-    public Func<IRootContext, IRootContext> FuncActorSystemStart { get; set; } = _ => _;
+    public Func<IRootContext, Func<IRootContext, Task>, Task> FuncActorSystemStartAsync { get; set; } = (r, n) => n(r);
 
 
 }

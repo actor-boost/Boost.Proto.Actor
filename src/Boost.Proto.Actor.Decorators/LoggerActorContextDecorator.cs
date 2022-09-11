@@ -13,7 +13,8 @@ namespace Boost.Proto.Actor.Decorators
         public LoggerActorContextDecorator(IServiceProvider serviceProvider, IContext context) : base(context)
         {
             Context = context;
-            Logger = serviceProvider.GetRequiredService<ILogger<LoggerActorContextDecorator>>();
+            var loggerFactory = serviceProvider.GetRequiredService<ILoggerFactory>();
+            Logger = loggerFactory.CreateLogger(context.Actor.GetType().ToString());
         }
 
         public override void Respond(object message)

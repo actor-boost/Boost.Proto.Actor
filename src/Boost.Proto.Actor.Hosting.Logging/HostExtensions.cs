@@ -20,9 +20,8 @@ public static class HostExtensions
                 return ret;
             });
 
-            services.AddSingleton<FuncProps>(sp => x =>
-                x.WithContextDecorator(ctx =>
-                    ActivatorUtilities.CreateInstance<LoggerActorContextDecorator>(sp, ctx)));
+            services.AddSingleton<FuncProps>(sp => props =>
+                props.WithContextDecorator(ctx => new LoggerActorContextDecorator(sp, ctx)));
         });
 
         return host;

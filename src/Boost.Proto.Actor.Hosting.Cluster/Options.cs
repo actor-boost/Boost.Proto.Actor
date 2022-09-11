@@ -18,7 +18,7 @@ public class Options
     public Func<ActorSystem, ActorSystem> FuncActorSystem { get; set; } = _ => _;
     public Func<RootContext, RootContext> FuncRootContext { get; set; } = _ => _;
     public Func<IRootContext, IRootContext> FuncIRootContext { get; set; } = _ => _;
-    public Func<IRootContext, IRootContext> FuncActorSystemStart { get; set; } = _ => _;
+    public Func<IRootContext, Func<IRootContext, Task>, Task> FuncActorSystemStartAsync { get; set; } = (r, n) => n(r);
     public Func<ProtoClutser, string, IMemberStrategy> MemberStrategyBuilder { get; set; } = (a, b) => null;
     public Func<ClusterConfig, ClusterConfig> FuncClusterConfig { get; set; } = _ => _;
 

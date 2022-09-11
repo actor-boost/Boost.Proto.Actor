@@ -7,15 +7,19 @@ using Proto.Cluster;
 
 namespace Boost.Proto.Actor.Hosting.Cluster
 {
-    internal record HostedService(IEnumerable<FuncActorSystemStart> FuncActorSystemStarts,
+    internal record HostedService(IEnumerable<FuncActorSystemStartAsync> FuncActorSystemStartAsyncs,
                                   IOptions<Options> HostOption,
                                   IRootContext Root) : IHostedService
     {
         public async Task StartAsync(CancellationToken cancellationToken)
         {
-            FuncActorSystemStarts.Aggregate((x, y) => z => y(x(z)))(Root);
+            var f = FuncActorSystemStartAsyncs.Aggregate((x, y) => async (r, n) =>
+            {
+                await y(r, n);
+                await x(r, n);
+            });
 
-            await Root.System.Cluster().StartMemberAsync();
+            await f(Root, async r => await r.System.Cluster().StartMemberAsync());
         }
 
         public async Task StopAsync(CancellationToken cancellationToken)

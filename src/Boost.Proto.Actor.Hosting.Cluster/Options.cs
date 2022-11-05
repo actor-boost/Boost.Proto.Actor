@@ -22,5 +22,9 @@ public class Options
     public Func<ProtoClutser, string, IMemberStrategy> MemberStrategyBuilder { get; set; } = (a, b) => null;
     public Func<ClusterConfig, ClusterConfig> FuncClusterConfig { get; set; } = _ => _;
 
-    public int SystemShutdownDelaySec { get; set; } = 10;
+#if DEBUG
+    public int SystemShutdownDelaySec { get; set; } = 0;
+#else
+    public int SystemShutdownDelaySec { get; set; } = 30;
+#endif
 }

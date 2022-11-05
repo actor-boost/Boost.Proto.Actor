@@ -19,11 +19,16 @@ namespace Boost.Proto.Actor.Hosting.Cluster.Tests;
 
 public class TestActor : IActor
 {
-    public Task ReceiveAsync(IContext context) => context.Message switch
+    public async Task ReceiveAsync(IContext context)
     {
-        "Hello" => Task.Run(() => context.Respond("World")),
-        _ => Task.CompletedTask
-    };
+        await using var scope = context.System.ServiceProvider().CreateAsyncScope();
+
+        var ret = context.Message switch
+        {
+            "Hello" => Task.Run(() => context.Respond("World")),
+            _ => Task.CompletedTask
+        };
+    }
 }
 
 public class OptionsSpec
@@ -31,23 +36,21 @@ public class OptionsSpec
     [Fact]
     public async Task Test1Async()
     {
-        using var appsettingsStream = Encoding.Default.GetBytes(@"
+        using var appsettingsStream = Encoding.Default.GetBytes("""
         {
-          'Boost' : {
-            'Actor' : {
-              'Cluster' : {
-                'Name' : 'UnitTest1',
-                'Provider' : 'Local'
+          "Boost" : {
+            "Actor" : {
+              "Cluster" : {
+                "Name" : "UnitTest1",
+                "Provider" : "Local"
               }
             }
           }
-        }".Replace('\'', '\"')).AsMemory().AsStream();
+        }
+        """).AsMemory().AsStream();
 
         var host = Host.CreateDefaultBuilder()
-                       .ConfigureAppConfiguration(config =>
-                       {
-                           config.AddJsonStream(appsettingsStream);
-                       })
+                       .ConfigureAppConfiguration(config => config.AddJsonStream(appsettingsStream))
                        .UseProtoActorCluster((option, sp) =>
                        {
                            option.Name = "OverrideClusterName";
@@ -63,12 +66,12 @@ public class OptionsSpec
 
         var option = host.Services.GetRequiredService<IOptions<ClusterOptions>>().Value;
 
-        option.Name.Should().Be("OverrideClusterName");
-        option.Provider.Should().Be(ClusterProviderType.Local);
-        option.ClusterKinds.Should().HaveCount(1);
-        option.ProtoMessages.Should().HaveCount(0);
-        option.AdvertisedHost.Should().Be("127.0.0.1");
-        option.RemoteProvider.Should().Be(RemoteProviderType.GrpcNet);
+        _ = option.Name.Should().Be("OverrideClusterName");
+        _ = option.Provider.Should().Be(ClusterProviderType.Local);
+        _ = option.ClusterKinds.Should().HaveCount(1);
+        _ = option.ProtoMessages.Should().HaveCount(0);
+        _ = option.AdvertisedHost.Should().Be("127.0.0.1");
+        _ = option.RemoteProvider.Should().Be(RemoteProviderType.GrpcNet);
 
         var cluster = host.Services.GetRequiredService<ProtoCluster>();
 
@@ -79,7 +82,7 @@ public class OptionsSpec
                                                      "Hello",
                                                      cts.Token);
 
-        ret.Should().Be("World");
+        _ = ret.Should().Be("World");
 
         await host.StopAsync();
     }

@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Proto.DependencyInjection;
 
 namespace Boost.Proto.Actor.DependencyInjection;
 
@@ -7,3 +8,4 @@ public delegate ActorSystemConfig FuncActorSystemConfig(ActorSystemConfig actorS
 public delegate IRootContext FuncIRootContext(IRootContext root);
 public delegate IRootContext FuncActorSystemStart(IRootContext root);
 public delegate Props FuncProps(Props props);
+

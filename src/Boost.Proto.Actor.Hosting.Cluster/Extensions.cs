@@ -99,18 +99,8 @@ public static partial class Extensions
 
             services.AddSingleton<FuncActorSystem>(sp =>
             {
-                var option = sp.GetRequiredService<IOptions<Options>>().Value;
                 var clusterConfig = sp.GetRequiredService<ClusterConfig>();
-
-                return x =>
-                {
-                    var y = option.RemoteProvider switch
-                    {
-                        _ => x.WithRemote(sp.GetRequiredService<GrpcNetRemoteConfig>())
-                    };
-
-                    return y.WithCluster(clusterConfig);
-                };
+                return x => x.WithRemote(sp.GetRequiredService<GrpcNetRemoteConfig>()).WithCluster(clusterConfig);
             });
 
             services.AddSingleton<FuncActorSystemConfig>(sp =>

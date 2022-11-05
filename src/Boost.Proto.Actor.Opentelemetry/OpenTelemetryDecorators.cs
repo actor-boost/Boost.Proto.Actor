@@ -11,26 +11,11 @@ namespace Boost.Proto.Actor.Opentelemetry
         private readonly ActivitySetup _sendActivitySetup;
 
         public OpenTelemetryRootContextDecorator(IRootContext context, ActivitySetup sendActivitySetup) : base(context)
-            => _sendActivitySetup = (activity, message)
-                =>
+            => _sendActivitySetup = (activity, message) =>
             {
                 activity?.SetTag(ProtoTags.ActorType, "<None>");
                 sendActivitySetup(activity, message);
             };
-
-        //public override void Send(PID target, object message)
-        //    => OpenTelemetryMethodsDecorators.Send(target, message, _sendActivitySetup, () => base.Send(target, message));
-
-        //public override void Request(PID target, object message)
-        //    => OpenTelemetryMethodsDecorators.Request(target, message, _sendActivitySetup, () => base.Request(target, message));
-
-        //public override void Request(PID target, object message, PID? sender)
-        //    => OpenTelemetryMethodsDecorators.Request(target, message, sender, _sendActivitySetup, () => base.Request(target, message, sender));
-
-        //public override Task<T> RequestAsync<T>(PID target, object message, CancellationToken cancellationToken)
-        //    => OpenTelemetryMethodsDecorators.RequestAsync(target, message, _sendActivitySetup,
-        //        () => base.RequestAsync<T>(target, message, cancellationToken)
-        //    );
     }
 
     public class OpenTelemetryActorContextDecorator : ActorContextDecorator
@@ -100,20 +85,6 @@ namespace Boost.Proto.Actor.Opentelemetry
 
             base.Respond(message);
         }
-
-        //public override void Send(PID target, object message)
-        //    => OpenTelemetryMethodsDecorators.Send(target, message, _sendActivitySetup, () => base.Send(target, message));
-
-        //public override Task<T> RequestAsync<T>(PID target, object message, CancellationToken cancellationToken)
-        //    => OpenTelemetryMethodsDecorators.RequestAsync(target, message, _sendActivitySetup,
-        //        () => base.RequestAsync<T>(target, message, cancellationToken)
-        //    );
-
-        //public override void Request(PID target, object message, PID? sender)
-        //    => OpenTelemetryMethodsDecorators.Request(target, message, sender, _sendActivitySetup, () => base.Request(target, message, sender));
-
-        //public override void Forward(PID target)
-        //    => OpenTelemetryMethodsDecorators.Forward(target, base.Message!, _sendActivitySetup, () => base.Forward(target));
 
         public override Task Receive(MessageEnvelope envelope)
             => OpenTelemetryMethodsDecorators.Receive(Self, envelope, _receiveActivitySetup, () => base.Receive(envelope));

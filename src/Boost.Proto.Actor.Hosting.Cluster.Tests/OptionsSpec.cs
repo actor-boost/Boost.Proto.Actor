@@ -25,7 +25,12 @@ public class TestActor : IActor
 
         var ret = context.Message switch
         {
-            "Hello" => Task.Run(() => context.Respond("World")),
+            "Hello" => Task.Run(() =>
+            {
+                context.Respond("World");
+                context.Set("State");
+            }),
+            "World" => Task.Run(() => context.Respond(context.Get<string>() ?? "")),
             _ => Task.CompletedTask
         };
     }
@@ -83,6 +88,13 @@ public class OptionsSpec
                                                      cts.Token);
 
         _ = ret.Should().Be("World");
+
+        var re1t = await cluster.RequestAsync<string>("1",
+                                                     "TestActor",
+                                                     "World",
+                                                     cts.Token);
+
+        _ = re1t.Should().Be("State");
 
         await host.StopAsync();
     }

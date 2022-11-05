@@ -39,6 +39,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Boost.Proto.Actor.Hosting.O
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Boost.Proto.Actor.Abstractions", "Boost.Proto.Abstractions\Boost.Proto.Actor.Abstractions.csproj", "{F12E3729-7339-45D6-B5C4-B5BD9B31550D}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Boost.Proto.Actor.Hosting.Cluster.Fsharp.Tests", "Boost.Proto.Actor.Hosting.Cluster.Fsharp.Tests\Boost.Proto.Actor.Hosting.Cluster.Fsharp.Tests.fsproj", "{21575FEF-7ACA-4FFD-9846-77D811DED9E1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -113,6 +115,10 @@ Global
 		{F12E3729-7339-45D6-B5C4-B5BD9B31550D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F12E3729-7339-45D6-B5C4-B5BD9B31550D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F12E3729-7339-45D6-B5C4-B5BD9B31550D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21575FEF-7ACA-4FFD-9846-77D811DED9E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21575FEF-7ACA-4FFD-9846-77D811DED9E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21575FEF-7ACA-4FFD-9846-77D811DED9E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21575FEF-7ACA-4FFD-9846-77D811DED9E1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

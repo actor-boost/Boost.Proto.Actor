@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Boost.Proto.Actor.Abstractions;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -13,7 +14,7 @@ namespace Boost.Proto.Actor.Decorators
         public LoggerActorContextDecorator(IServiceProvider serviceProvider, IContext context) : base(context)
         {
             Context = context;
-            Logger = serviceProvider.GetRequiredService<ILogger<LoggerActorContextDecorator>>();
+            Logger = serviceProvider.GetRequiredService<ILoggerFactory>().CreateLogger(context.Actor.GetType().Name);
         }
 
         public override void Respond(object message)

@@ -10,13 +10,6 @@ namespace Boost.Proto.Actor.Opentelemetry
         public static TracerProviderBuilder AddProtoActorInstrumentation(this TracerProviderBuilder builder)
             => builder.AddSource(ProtoTags.ActivitySourceName);
 
-        /// <summary>
-        ///     Setup OpenTelemetry send middleware & decorator.
-        /// </summary>
-        /// <param name="props">props.</param>
-        /// <param name="sendActivitySetup">provide a way inject send activity customization according to the message.</param>
-        /// <param name="receiveActivitySetup">provide a way inject receive activity customization according to the message.</param>
-        /// <returns>props</returns>
         public static Props WithTracing(
             this Props props,
             ActivitySetup? sendActivitySetup = null,
@@ -30,20 +23,17 @@ namespace Boost.Proto.Actor.Opentelemetry
                 .WithSenderMiddleware(OpenTelemetrySenderMiddleware);
         }
 
-        /// <summary>
-        ///     Adds trace headers to the message envelope, to propagate trace context.
-        /// </summary>
         public static Sender OpenTelemetrySenderMiddleware(Sender next)
-            => async (context, target, envelope) =>
+            => (context, target, envelope) =>
             {
-                var activity = Activity.Current;
+                var activity = context.Get<Activity>() ?? Activity.Current;
 
                 if (activity != null)
                 {
                     envelope = envelope.WithHeaders(activity.Context.GetPropagationHeaders());
                 }
 
-                await next(context, target, envelope);
+                return next(context, target, envelope);
             };
 
         public static RootContext WithTracing(this RootContext context) => context;

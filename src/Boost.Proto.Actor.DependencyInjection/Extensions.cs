@@ -44,7 +44,9 @@ public static class Extensions
             var funcSystem = sp.GetServices<FuncActorSystem>()
                                .Aggregate((x, y) => z => y(x(z)));
 
-            return funcSystem(new ActorSystem(funcConfig(ActorSystemConfig.Setup())).WithServiceProvider(sp).WithMicrosoftExtensionServiceProvider(sp));
+            return funcSystem(new ActorSystem(funcConfig(ActorSystemConfig.Setup()))
+                .WithServiceProvider(sp)
+                .WithMicrosoftExtensionServiceProvider(sp));
         });
 
         services.AddSingleton(typeof(IPropsFactory<>), typeof(PropsFactory<>));

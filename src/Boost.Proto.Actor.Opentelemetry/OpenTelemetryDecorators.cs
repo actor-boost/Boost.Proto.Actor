@@ -60,7 +60,7 @@ namespace Boost.Proto.Actor.Opentelemetry
                 if (activity is not null)
                 {
                     var names = pid.ToString().Split('/');
-                    var n = names.Length > 2 ? $"{names[0]}/.../{OpenTelemetryMethodsDecorators.Truncate(names[^1], 10)}" : pid.ToString();
+                    var n = names.Length > 2 ? $"{names[0]}/.../" : pid.ToString();
 
                     activity.DisplayName = $"Spawned {n}";
                 }
@@ -86,137 +86,21 @@ namespace Boost.Proto.Actor.Opentelemetry
             base.Respond(message);
         }
 
-        public override Task Receive(MessageEnvelope envelope)
-            => OpenTelemetryMethodsDecorators.Receive(Self, envelope, _receiveActivitySetup, () => base.Receive(envelope));
-    }
-
-    internal static class OpenTelemetryMethodsDecorators
-    {
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void Send(PID target, object message, ActivitySetup sendActivitySetup, Action send)
-        {
-            using var activity =
-                OpenTelemetryHelpers.BuildStartedActivity(Activity.Current?.Context ?? default, "Tell ", message, sendActivitySetup);
-
-            try
-            {
-                activity?.SetTag(ProtoTags.TargetPID, target.ToString());
-                send();
-            }
-            catch (Exception ex)
-            {
-                activity?.RecordException(ex);
-                activity?.SetStatus(Status.Error);
-                throw;
-            }
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static void Request(PID target, object message, ActivitySetup sendActivitySetup, Action request)
-        {
-            using var activity =
-                OpenTelemetryHelpers.BuildStartedActivity(Activity.Current?.Context ?? default, "Ask ", message, sendActivitySetup);
-
-            try
-            {
-                activity?.SetTag(ProtoTags.TargetPID, target.ToString());
-                request();
-            }
-            catch (Exception ex)
-            {
-                activity?.RecordException(ex);
-                activity?.SetStatus(Status.Error);
-                throw;
-            }
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static void Request(PID target, object message, PID? sender, ActivitySetup sendActivitySetup, Action request)
-        {
-            using var activity =
-                OpenTelemetryHelpers.BuildStartedActivity(Activity.Current?.Context ?? default, "Ask ", message, sendActivitySetup);
-
-            try
-            {
-                activity?.SetTag(ProtoTags.TargetPID, target.ToString());
-
-                if (sender is not null)
-                {
-                    activity?.SetTag(ProtoTags.SenderPID, sender.ToString());
-                }
-
-                request();
-            }
-            catch (Exception ex)
-            {
-                activity?.RecordException(ex);
-                activity?.SetStatus(Status.Error);
-                throw;
-            }
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static async Task<T> RequestAsync<T>(PID target, object message, ActivitySetup sendActivitySetup, Func<Task<T>> requestAsync)
-        {
-            using var activity =
-                OpenTelemetryHelpers.BuildStartedActivity(Activity.Current?.Context ?? default, "Ask ", message, sendActivitySetup);
-
-            try
-            {
-                activity?.SetTag(ProtoTags.TargetPID, target.ToString());
-                return await requestAsync().ConfigureAwait(false);
-            }
-            catch (Exception ex)
-            {
-                activity?.RecordException(ex);
-                activity?.SetStatus(Status.Error);
-                throw;
-            }
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static void Forward(PID target, object message, ActivitySetup sendActivitySetup, Action forward)
-        {
-            using var activity =
-                OpenTelemetryHelpers.BuildStartedActivity(Activity.Current?.Context ?? default, "Forward ", message, sendActivitySetup);
-
-            try
-            {
-                activity?.SetTag(ProtoTags.TargetPID, target.ToString());
-                forward();
-            }
-            catch (Exception ex)
-            {
-                activity?.RecordException(ex);
-                activity?.SetStatus(Status.Error);
-                throw;
-            }
-        }
-
-        public static string Truncate(string value, int maxChars)
-        {
-            const string ellipses = "...";
-            return value.Length <= maxChars ? value : value.Substring(0, maxChars - ellipses.Length) + ellipses;
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static async Task Receive(string self, MessageEnvelope envelope, ActivitySetup receiveActivitySetup, Func<Task> receive)
+        public override async Task Receive(MessageEnvelope envelope)
         {
             var message = envelope.Message;
 
             if (message is InfrastructureMessage)
             {
-                await receive().ConfigureAwait(false);
+                await base.Receive(envelope);
                 return;
             }
 
             var propagationContext = envelope.Header.ExtractPropagationContext();
-
-            var names = self.Split('/');
-            var name = names.Length > 2 ? $"{names[0]}/.../{Truncate(names[^1], 10)}" : self;
+            var name = Self.GetType().Name;
 
             using var activity =
-                OpenTelemetryHelpers.BuildStartedActivity(propagationContext.ActivityContext, $"{name}@", message, receiveActivitySetup);
+                OpenTelemetryHelpers.BuildStartedActivity(propagationContext.ActivityContext, $"{name}@", message, _receiveActivitySetup);
 
             try
             {
@@ -225,9 +109,9 @@ namespace Boost.Proto.Actor.Opentelemetry
                     activity?.SetTag(ProtoTags.SenderPID, envelope.Sender.ToString());
                 }
 
-                receiveActivitySetup?.Invoke(activity, message);
+                _receiveActivitySetup?.Invoke(activity, message);
 
-                await receive().ConfigureAwait(false);
+                await base.Receive(envelope);
             }
             catch (Exception ex)
             {
@@ -236,5 +120,8 @@ namespace Boost.Proto.Actor.Opentelemetry
                 throw;
             }
         }
+            
     }
+
+   
 }

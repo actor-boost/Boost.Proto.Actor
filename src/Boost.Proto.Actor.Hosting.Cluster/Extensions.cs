@@ -65,7 +65,7 @@ public static partial class Extensions
                 return sp.GetRequiredService<IOptions<Options>>().Value.Provider switch
                 {
                     ClusterProviderType.Kubernetes => ActivatorUtilities.CreateInstance<KubernetesProvider>(sp),
-                    ClusterProviderType.Consul => ActivatorUtilities.CreateInstance<ConsulProvider>(sp, new ConsulProviderConfig()),
+                    ClusterProviderType.Consul => sp.GetRequiredService<ConsulProvider>(),
                     _ => new TestProvider(new(), new())
                 };
             });

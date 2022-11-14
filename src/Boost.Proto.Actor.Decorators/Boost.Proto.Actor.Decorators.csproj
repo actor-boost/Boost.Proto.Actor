@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Proto.Actor" Version="1.0.0-rc4.7" />
+    <PackageReference Include="Proto.Actor" Version="1.0.0-rc4.11" />
   </ItemGroup>
 
   <ItemGroup>

@@ -6,7 +6,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Proto.Cluster" Version="1.0.0-rc4.7" />
-    <PackageReference Include="Proto.Cluster.Consul" Version="1.0.0-rc4.7" />
+    <PackageReference Include="Proto.Cluster.Consul" Version="1.0.0-rc4.14" />
     <PackageReference Include="Proto.Cluster.Kubernetes" Version="1.0.0-rc4.7" />
     <PackageReference Include="Proto.Cluster.TestProvider" Version="1.0.0-rc4.7" />
   </ItemGroup>

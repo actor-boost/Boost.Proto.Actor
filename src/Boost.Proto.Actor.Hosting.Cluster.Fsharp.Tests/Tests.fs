@@ -13,7 +13,7 @@ type TestActorMessage =
 | Hello
 | World
 
-type TestActor(TestActorFactory : IPropsFactory<TestActor>) =
+type TestActor() =
     interface IActor with
         member _.ReceiveAsync(context) = task {
             match context.Message with

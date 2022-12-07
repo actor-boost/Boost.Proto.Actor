@@ -109,8 +109,7 @@ public static partial class Extensions
 
                 return x => x.WithDeveloperSupervisionLogging(true)
                              .WithDeadLetterRequestLogging(true)
-                             .WithDeveloperThreadPoolStatsLogging(true)
-                             .WithDeveloperReceiveLogging(TimeSpan.FromSeconds(5));
+                             .WithDeveloperThreadPoolStatsLogging(true);
             });
         });
 

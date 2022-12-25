@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<coverage version="1.0" date="2022-12-25_02-55-24" tag="588_3774037687">
+  <assembly name="Boost.Proto.Actor.Abstractions" />
+  <assembly name="Boost.Proto.Actor.BlazorWasm">
+    <class name="Boost.Proto.Actor.BlazorWasm.DependencyInjectionExtensions" coveredlines="0" coverablelines="17" totallines="34" coveredbranches="0" totalbranches="2" coveredcodeelements="0" totalcodeelements="2" />
+    <class name="Boost.Proto.Actor.BlazorWasm.ProtoActorService" coveredlines="0" coverablelines="8" totallines="25" coveredbranches="0" totalbranches="0" coveredcodeelements="0" totalcodeelements="4" />
+    <class name="Boost.Proto.Actor.BlazorWasm.ProtoActorServiceExtension" coveredlines="0" coverablelines="4" totallines="25" coveredbranches="0" totalbranches="0" coveredcodeelements="0" totalcodeelements="1" />
+    <class name="Boost.Proto.Actor.BlazorWasm.ProtoActorWasmOption" coveredlines="0" coverablelines="7" totallines="23" coveredbranches="0" totalbranches="0" coveredcodeelements="0" totalcodeelements="7" />
+    <class name="Boost.Proto.Actor.BlazorWasm.ReduxActor`1" coveredlines="0" coverablelines="17" totallines="29" coveredbranches="0" totalbranches="4" coveredcodeelements="0" totalcodeelements="4" />
+  </assembly>
+  <assembly name="Boost.Proto.Actor.Decorators">
+    <class name="Boost.Proto.Actor.Decorators.LoggerActorContextDecorator" coveredlines="0" coverablelines="33" totallines="59" coveredbranches="0" totalbranches="4" coveredcodeelements="0" totalcodeelements="6" />
+  </assembly>
+  <assembly name="Boost.Proto.Actor.DependencyInjection">
+    <class name="Boost.Proto.Actor.DependencyInjection.Extensions" coveredlines="34" coverablelines="34" totallines="62" coveredbranches="8" totalbranches="8" coveredcodeelements="3" totalcodeelements="3" />
+    <class name="Boost.Proto.Actor.DependencyInjection.MSDIExtension" coveredlines="5" coverablelines="5" totallines="62" coveredbranches="0" totalbranches="0" coveredcodeelements="2" totalcodeelements="2" />
+    <class name="Boost.Proto.Actor.DependencyInjection.PropsFactory`1" coveredlines="9" coverablelines="9" totallines="14" coveredbranches="2" totalbranches="2" coveredcodeelements="3" totalcodeelements="3" />
+    <class name="Boost.Proto.Actor.DependencyInjection.PropsProxyFactory`1" coveredlines="0" coverablelines="5" totallines="9" coveredbranches="0" totalbranches="0" coveredcodeelements="0" totalcodeelements="3" />
+  </assembly>
+  <assembly name="Boost.Proto.Actor.Hosting.Cluster">
+    <class name="Boost.Proto.Actor.Hosting.Cluster.Extensions" coveredlines="81" coverablelines="90" totallines="118" coveredbranches="12" totalbranches="22" coveredcodeelements="1" totalcodeelements="1" />
+    <class name="Boost.Proto.Actor.Hosting.Cluster.HostedService" coveredlines="18" coverablelines="18" totallines="28" coveredbranches="0" totalbranches="0" coveredcodeelements="4" totalcodeelements="4" />
+    <class name="Boost.Proto.Actor.Hosting.Cluster.Options" coveredlines="14" coverablelines="14" totallines="30" coveredbranches="0" totalbranches="0" coveredcodeelements="14" totalcodeelements="14" />
+  </assembly>
+  <assembly name="Boost.Proto.Actor.Hosting.Local">
+    <class name="Boost.Proto.Actor.Hosting.Local.HostedService" coveredlines="0" coverablelines="16" totallines="24" coveredbranches="0" totalbranches="0" coveredcodeelements="0" totalcodeelements="5" />
+    <class name="Boost.Proto.Actor.Hosting.Local.HostExtensions" coveredlines="0" coverablelines="19" totallines="36" coveredbranches="0" totalbranches="2" coveredcodeelements="0" totalcodeelements="1" />
+    <class name="Boost.Proto.Actor.Hosting.Local.HostOption" coveredlines="0" coverablelines="6" totallines="14" coveredbranches="0" totalbranches="0" coveredcodeelements="0" totalcodeelements="6" />
+  </assembly>
+  <assembly name="Boost.Proto.Actor.Hosting.Logging">
+    <class name="Boost.Proto.Actor.Hosting.Logging.HostExtensions" coveredlines="0" coverablelines="16" totallines="30" coveredbranches="0" totalbranches="4" coveredcodeelements="0" totalcodeelements="1" />
+  </assembly>
+  <assembly name="Boost.Proto.Actor.Hosting.OpenTelemetry">
+    <class name="Boost.Proto.Actor.Hosting.OpenTelemetry.HostExtensions" coveredlines="0" coverablelines="14" totallines="29" coveredbranches="0" totalbranches="2" coveredcodeelements="0" totalcodeelements="1" />
+  </assembly>
+  <assembly name="Boost.Proto.Actor.Opentelemetry">
+    <class name="Boost.Proto.Actor.Opentelemetry.OpenTelemetryActorContextDecorator" coveredlines="0" coverablelines="68" totallines="127" coveredbranches="0" totalbranches="40" coveredcodeelements="0" totalcodeelements="5" />
+    <class name="Boost.Proto.Actor.Opentelemetry.OpenTelemetryHelpers" coveredlines="0" coverablelines="24" totallines="59" coveredbranches="0" totalbranches="12" coveredcodeelements="0" totalcodeelements="6" />
+    <class name="Boost.Proto.Actor.Opentelemetry.OpenTelemetryRootContextDecorator" coveredlines="0" coverablelines="6" totallines="127" coveredbranches="0" totalbranches="2" coveredcodeelements="0" totalcodeelements="1" />
+    <class name="Boost.Proto.Actor.Opentelemetry.OpenTelemetryTracingExtensions" coveredlines="0" coverablelines="25" totallines="50" coveredbranches="0" totalbranches="20" coveredcodeelements="0" totalcodeelements="5" />
+  </assembly>
+</coverage>
